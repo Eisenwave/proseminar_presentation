@@ -1,0 +1,382 @@
+<html>
+<head>
+    <title></title>
+    <meta content="">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        ol {
+            counter-reset: item;
+            padding-left: 20px;
+        }
+
+        li {
+            display: block;
+        }
+
+        li:before {
+            content: counters(item, ".") ". ";
+            counter-increment: item;
+            font-family: serif;
+            font-weight: bold;
+        }
+
+        .li0:before {
+            content: "\FFED  ";
+        }
+
+        .li1 {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .li2 {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        h1 {
+            font-family: sans-serif;
+            text-decoration: underline
+        }
+
+        h2 {
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        h3 {
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        h4 {
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        section {
+            margin-bottom: 400px;
+            min-height: 400px;
+            background-image: linear-gradient(to bottom, white, rgb(250, 250, 250), rgb(245, 245, 245), rgb(250, 250, 250), white);
+        }
+
+        .MathJax:focus, .mjx-chtml:focus, .MathJax_SVG:focus {
+            outline: 0 solid gray;
+        }
+    </style>
+
+    <script src='js/mathjax/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+</head>
+<body>
+
+<section>
+    <h1 id="heading-top">Pseudozufallsfolgengeneratoren</h1>
+</section>
+
+<section>
+    <h2>Einführung (1 min)</h2>
+    <ul>
+        <li class="li0">Zufallsgeneratoren sind überall.</li>
+        <li class="li0">... und zwar seit sehr langer Zeit</li>
+    </ul>
+</section>
+
+
+<section>
+    <h2 id="heading-inhaltsverzeichnis">Inhaltsverzeichnis (1 min)</h2>
+
+    <ol>
+        <li class="li1">
+            <a href="#heading-definitionen">Definitionen (1 min)</a>
+        </li>
+
+
+        <li class="li1">
+            <a href="#heading-middle-square">Middle-Square-Methode (7.5 min)</a>
+            <ol>
+                <li class="li2">Geschichte und Anwendung</li>
+                <li class="li2"><a href="#heading-ms-funktionsweise">Funktionsweise</a></li>
+                <li class="li2"><a href="#heading-ms-bewertungskriterien">
+                    Bewertungskriterien von PZGs anhand der
+                    Middle-Square-Methode</a>
+                    <ol>
+                        <li>Effizienz</li>
+                        <li>Werteverteilungen</li>
+                        <li>Periodenlänge</li>
+                        <li>LSB-Analyse</li>
+                        <li>Zeichnen der Generatorfunktion</li>
+                        <li><a href="#heading-ms-3d">3D-Darstellung</a></li>
+                        <li>Stochastische Tests</li>
+                    </ol>
+                </li>
+            </ol>
+        </li>
+
+
+        <li class="li1">
+            <a href="#heading-kg">Kongruenzgeneratoren</a>
+            <ol>
+                <li class="li2"><a href="#heading-kg-funktionsweise">Funktionsweise</a></li>
+                <li class="li2"><a href="#heading-randu">RANDU (Multiplikative Kongruenzgeneratoren)</a>
+                    <ol>
+                        <li>Geschichte und Anwendung</li>
+                        <li>Bewertung</li>
+                    </ol>
+                </li>
+                <li class="li2"><a href="#heading-lkg">Lineare Kongruenzgeneratoren</a>
+                    <ol>
+                        <li>Geschichte und Anwendung</li>
+                        <li>Bewertung</li>
+                    </ol>
+                </li>
+                <!--li class="li2">
+                    Weitere Kongruenzgeneratoren
+                    <ol>
+                        <li>Fibonacci-Generatoren</li>
+                    </ol>
+                </li-->
+            </ol>
+        </li>
+
+        <li class="li1">
+            <a href="#heading-modern">Moderne Verfahren</a>
+            <ol>
+                <li class="li2"><a href="#heading-zuverlaessig">Zuverlässige PZGs</a></li>
+                <li class="li2"><a href="#heading-krypto">Kryptographisch sichere PZGs</a></li>
+            </ol>
+        </li>
+
+        <li class="li1">Schluss</li>
+
+        <li class="li1">
+            <a href="#heading-quellen">Quellenverzeichnis</a>
+            <ol>
+                <li>Bildquellen, Visualisierung</li>
+                <li>Literaturverzeichnis</li>
+            </ol>
+        </li>
+    </ol>
+</section>
+
+
+<section>
+    <h2 id="heading-definitionen">1. Definitionen</h2>
+</section>
+
+
+<section>
+    <h2 id="heading-middle-square">2. Middle-Square-Methode</h2>
+    <script src="js/MiddleSquareCalc.js" async></script>
+    <script src="js/RanduCalc.js" async></script>
+
+    <h3 id="heading-ms-funktionsweise">2.1. Funktionsweise</h3>
+    <div style="text-align: center; width: 800px">
+        \[X_{i+1} = \Bigl\lfloor\dfrac{X_i^2}{100}\Bigr\rfloor \mod 10^5\]
+        <p>
+            Der aktuelle vier-stellige Zustand \(X_i\) wird quadriert und anschließend werden die 4 mittleren Stellen
+            des 8-stelligen Zwischenergebnises "ausgeschnitten".
+        </p>
+    </div>
+
+    <table>
+        <tr>
+            <td>\(X_i\)</td>
+            <td>
+                <input id="in" style="font-family: monospace" min="0" max="9999" type="number"
+                       oninput="onMiddleSquareInput(MS_IN, MS_OUT, MS_SQR)"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>\(X_i^2\)</td>
+            <td>
+                <textarea id="in_squared" rows="1" cols="8" readonly></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>\(X_{i+1}\)</td>
+            <td>
+                <textarea id="out" rows="1" cols="8" readonly></textarea>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <button id="ms-button"
+                        onclick="onMiddleSquareButton(MS_IN, MS_OUT, MS_SQR)">
+                    \(X_i = X_{i+1}\)
+                </button>
+            </td>
+            <td>
+                <button style="font-family: sans-serif; font-weight: bold"
+                        onclick="turbo(MS_BUTTON, 50, 50)">
+                    50x
+                </button>
+            </td>
+        </tr>
+    </table>
+</section>
+
+
+<section>
+    <h3 id="heading-ms-bewertungskriterien">2.2. Bewertungskriterien von PZG anhand der Middle-Square-Methode</h3>
+</section>
+
+
+<section>
+    <h4 id="heading-ms-3d">2.3.1 Middle-Square-Methode 3D</h4>
+
+    <embed src="middle-square-vis.html"
+           style="border: 2px black;"
+           width="800" height="600">
+</section>
+
+
+<section>
+    <h2 id="heading-kg">3. Kongruenzgeneratoren</h2>
+
+    <h3 id="heading-kg-funktionsweise">3.1. Funktionsweise</h3>
+
+    <div style="width: 800px">
+        <h5 style="text-align: center">Allgemeiner Kongruenzgenerator:</h5>
+        \[ X_{i+1} = \Biggl(\Bigl(\sum_{k=0}^n a_k X_{i-k}\Bigr) + b\Biggr) \bmod m \]
+
+        <p style="text-align: center">
+            Das nächste Element \(X_{i}\) der Folge wird duch Multiplizieren der vorherigen \(X_{i-k}\) mit den
+            dazugehörigen konstanten Faktoren \(a_{k}\) und dem Addieren der Konstante \(b\) erzeugt.
+        </p>
+        <p style="text-align: center">
+            Z.B. Fibonacci-Generator: \(a_0 = a_1 = 1,\, b = 0,\, m \in \{0, 1, 2, 3, 5, \ldots\}\)
+        </p>
+
+        <h5 style="text-align: center">Linearer Kongruenzgenerator:</h5>
+        \[ X_{i+1} = (a \cdot X_{i} + b) \bmod m \]
+        <p style="text-align: center">
+            Sonderfall für \(a_{k \gt 0} = 0\). Hierbei \(a := a_{0}\).
+        </p>
+
+        <h5 style="text-align: center">Multiplikativer Kongruenzgenerator:</h5>
+        \[ X_{i+1} = (a \cdot X_{i}) \bmod m \]
+        <p style="text-align: center">
+            Sonderfall für \(b = 0\)
+        </p>
+
+    </div>
+</section>
+
+
+<section>
+    <h3 id="heading-randu">3.2. RANDU (Multiplikative Kongruenzgeneratoren)</h3>
+    <div style="width:800px">
+        \[ \begin{aligned}
+        X_{i+1} &= (X_i \cdot 65539) \bmod 2^{31} \\
+        &= (X_i \cdot (2^{16}+3) ) \bmod 2^{31} \\
+        &= (X_i + X_i + X_i + (X_i \ll 16) ) \mathrel{\&} (2^{31}-1)
+        \end{aligned} \]
+    </div>
+
+    <table>
+        <tr>
+            <td>\(X_i\):</td>
+            <td>
+                <input id="randu-in" style="font-family: monospace" min="0" max="2147483648" type="number"
+                       oninput="onRanduInput(RANDU_IN, RANDU_OUT)"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>\(X_{i+1}\):</td>
+            <td>
+                <textarea id="randu-out" rows="1" cols="10" readonly></textarea>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <button id="randu-button"
+                        style="font-family: serif; font-weight: bold" onclick="onRanduButton(RANDU_IN, RANDU_OUT)">
+                    \(X_i = X_{i+1}\)
+                </button>
+            </td>
+            <td>
+                <button style="font-family: sans-serif; font-weight: bold" onclick="turbo(RANDU_BUTTON, 50, 50)">
+                    50x
+                </button>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<section>
+    <h3 id="heading-lkg">3.3. Lineare Kongruenzgeneratoren</h3>
+</section>
+
+
+<section>
+    <h2 id="heading-modern">4. Moderne Verfahren</h2>
+</section>
+
+
+<section>
+    <h3 id="heading-zuverlaessig">4.1. Zuverlässige Pseudozufallsgeneratoren</h3>
+</section>
+
+
+<section>
+<h3 id="heading-krypto">4.2. Kryptographisch sichere Zufallsgeneratoren</h3>
+</section>
+
+<section>
+<h2 id="heading-schluss">5. Schluss</h2>
+</section>
+
+<section>
+<h2 id="heading-quellen">6. Quellenverzeichnis</h2>
+
+<h4 id="heading-bildqullen">6.1. Bildquellen, Visualisierung usw.</h4>
+</section>
+
+<section>
+<h4 id="heading-literaturverzeichnis">6.2. Literaturverzeichnis</h4>
+</section>
+
+<script>
+    // make constants available to buttons and other elements
+    const MS_IN = document.getElementById("in");
+    const MS_OUT = document.getElementById("out");
+    const MS_SQR = document.getElementById("in_squared");
+    const MS_BUTTON = document.getElementById("ms-button");
+    const RANDU_IN = document.getElementById("randu-in");
+    const RANDU_OUT = document.getElementById("randu-out");
+    const RANDU_BUTTON = document.getElementById("randu-button");
+
+    let index = 0;
+    for (let element of document.querySelectorAll("*")) {
+        if (element.tagName === "SECTION")
+            element.id = "slide-" + index++;
+    }
+    if (window.location.hash === "")
+        window.location.hash = "slide-0";
+
+    function turbo(button, count, millis) {
+        for (let i = 0; i < count; i++) {
+            setTimeout(() => {
+                button.onclick();
+            }, i * millis);
+        }
+    }
+</script>
+
+</body>
+</html>
