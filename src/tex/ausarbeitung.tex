@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+
+%\usepackage{hyperref}
+%\usepackage{titling}
+
+%\newcommand{\subtitle}[1]{
+%\posttitle{
+%\par\end{center}
+%\begin{center}\LARGE#1\end{center}
+%\vskip0.5em}
+%}
+
+\title{\textbf{\LARGE Pseudozufallsfolgengeneratoren
+\\{\large Technische Universit\"at Dresden}
+}}
+%\subtitle{Pseudozuffalsfolgengeneratoren}
+
+%\title{\LARGE Pseudozuffalsfolgengeneratoren}
+\author{\Large Jan Schultke}
+\date{\large\today}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\nouppercase{\leftmark}}
+\lhead{Pseudozuffalsfolgengeneratoren}
+%\rfoot{Page \thepage}
+\cfoot{\thepage}
+
+\setcounter{tocdepth}{3}
+%\renewcommand{\footrulewidth}{0.5pt}
+
+\begin{document}
+
+    %\section{Title}\label{sec:title}
+    \maketitle
+    \pagenumbering{gobble}
+    \clearpage
+    \pagebreak
+
+    \pagenumbering{arabic}
+    \tableofcontents
+    \pagebreak
+
+    \section{Abstract}\label{sec:abstract}
+    %\begin{abstract}
+    This is the paper's abstract \ldots
+    %\end{abstract}
+    \pagebreak
+
+    %\addcontentsline{toc}{subsection}{\numberline{\thesection.2} Some Subsection}
+
+    \section{Einf\"uhrung}\label{sec:intro}
+    This is time for all good men to come to the aid of their party!
+    \pagebreak
+
+    \addcontentsline{toc}{section}{\numberline{3}Definitionen}
+
+    \addcontentsline{toc}{section}{\numberline{4}John von Neumanns Mittelquadratmethode:
+    \\\small Die Geburt des Pseudozufalls}
+    \addcontentsline{toc}{subsection}{\numberline{4.1}Geschichte und Anwendung}
+    \addcontentsline{toc}{subsection}{\numberline{4.2}Funktionsweise und offensichtliche Schwachstellen}
+    \addcontentsline{toc}{subsection}{\numberline{4.3}Bewertungskriterien von PZFG anhand der Mittelquadratmethode}
+    \addcontentsline{toc}{subsubsection}{\numberline{4.3.1}Effizienz}
+    \addcontentsline{toc}{subsubsection}{\numberline{4.3.2}Werteverteilung: Wunsch und Realit\"at}
+    \addcontentsline{toc}{subsubsection}{\numberline{4.3.3}Periodenl\"ange}
+    \addcontentsline{toc}{subsubsection}{\numberline{4.3.4}LSB-Analyse: Muster in niederwertigsten Bits}
+    \addcontentsline{toc}{subsubsection}{\numberline{4.3.5}Zeichnen der Funktion: Ein visueller Test}
+    \addcontentsline{toc}{subsubsection}{\numberline{4.3.6}Ausblick in diverse weitere Stochastische Tests}
+
+    \addcontentsline{toc}{section}{\numberline{5}Kongruenzgeneratoren:
+    \\\small Pseudozufall in der Praxis}
+    \addcontentsline{toc}{subsection}{\numberline{5.1}Definitionen: Vom Multiplikativen zum Allgemeinen}
+    \addcontentsline{toc}{subsection}{\numberline{5.2}RANDU: primitivste Pseudozufallsgenerierung}
+    \addcontentsline{toc}{subsection}{\numberline{5.3}Bewertungskriterien von PZFG anhand von RANDU}
+    \addcontentsline{toc}{subsubsection}{\numberline{5.3.1}Effizienz: RANDU mit nur Addition und Bitoperationen}
+    \addcontentsline{toc}{subsubsection}{\numberline{5.3.2}Werteverteilung und Periodenl\"ange: RANDU und
+    Kongruenzgeneratoren im Allgemeinen}
+    \addcontentsline{toc}{subsubsection}{\numberline{5.3.3}LSB-Analyse: Muster in niederwertigsten Bits}
+    \addcontentsline{toc}{subsubsection}{\numberline{5.3.4}Spektraltests: RANDUs 15 Ebenen}
+
+    \addcontentsline{toc}{section}{\numberline{6}Moderne Verfahren:
+    \\\small Pseudozufall mit Qualit\"at an erster Stelle}
+    \addcontentsline{toc}{subsection}{\numberline{6.1}Zuverl\"assige PZFGeneratoren}
+    \addcontentsline{toc}{subsubsection}{\numberline{6.1.1}Hashfunktionen als PZFGeneratoren}
+    \addcontentsline{toc}{subsection}{\numberline{6.2}Kryptographisch sichere PZFGeneratoren}
+    \addcontentsline{toc}{subsubsection}{\numberline{6.2.1}Blockchiffren am Beispiel des AES}
+
+    \addcontentsline{toc}{section}{\numberline{7} Schlussfolgerung}
+    \addcontentsline{toc}{section}{\numberline{8} Literaturverzeichnis}
+
+    %\paragraph{Outline}
+    .
+    %Section~\ref{sec:previous work} gives account of previous work.
+    %Our new and exciting results are described in Section~\ref{sec:results}.
+    %Finally, Section~\ref{sec:conclusions} gives the conclusions.
+    %    \section{Previous work}\label{sec:previous work}
+    %    A much longer \LaTeXe{} example was written by Gil~\cite{Gil:02}.
+
+    \bibliographystyle{abbrv}
+    \bibliography{main}
+
+\end{document}

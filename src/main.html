@@ -1,4 +1,5 @@
-<html>
+<meta charset="UTF-8">
+<html lang="de_de">
 <head>
     <title></title>
     <meta content="">
@@ -65,7 +66,8 @@
         }
 
         section {
-            margin-bottom: 400px;
+            margin-bottom: 100%;
+            margin-top: 100%;
             min-height: 400px;
             background-image: linear-gradient(to bottom, white, rgb(250, 250, 250), rgb(245, 245, 245), rgb(250, 250, 250), white);
         }
@@ -80,7 +82,7 @@
 </head>
 <body>
 
-<section>
+<section style="margin-top: 0">
     <h1 id="heading-top">Pseudozufallsfolgengeneratoren</h1>
 </section>
 
@@ -103,7 +105,7 @@
 
 
         <li class="li1">
-            <a href="#heading-middle-square">Middle-Square-Methode (7.5 min)</a>
+            <a href="#heading-middle-square">Mittquadratmethode (7.5 min)</a>
             <ol>
                 <li class="li2">Geschichte und Anwendung</li>
                 <li class="li2"><a href="#heading-ms-funktionsweise">Funktionsweise</a></li>
@@ -115,7 +117,7 @@
                         <li>Werteverteilungen</li>
                         <li>Periodenlänge</li>
                         <li>LSB-Analyse</li>
-                        <li>Zeichnen der Generatorfunktion</li>
+                        <li><a href="#heading-ms-2d">Zeichnen der Generatorfunktion</a></li>
                         <li><a href="#heading-ms-3d">3D-Darstellung</a></li>
                         <li>Stochastische Tests</li>
                     </ol>
@@ -177,8 +179,8 @@
 
 <section>
     <h2 id="heading-middle-square">2. Middle-Square-Methode</h2>
-    <script src="js/MiddleSquareCalc.js" async></script>
-    <script src="js/RanduCalc.js" async></script>
+    <script src="js/MiddleSquareCalc.js"></script>
+    <script src="js/RanduCalc.js"></script>
 
     <h3 id="heading-ms-funktionsweise">2.1. Funktionsweise</h3>
     <div style="text-align: center; width: 800px">
@@ -233,6 +235,144 @@
     <h3 id="heading-ms-bewertungskriterien">2.2. Bewertungskriterien von PZG anhand der Middle-Square-Methode</h3>
 </section>
 
+<section>
+    <h4 id="heading-ms-verteilung">2.3.1 Middle-Square-Methode Verteilung</h4>
+    <canvas id="canvas-ms-dist" width="730" height="550" style="border:1px solid #000000;"></canvas>
+    <script>
+        {
+            let c = document.getElementById("canvas-ms-dist");
+            let context = c.getContext("2d");
+
+            const WIDTH = 730;
+            const HEIGHT = 550;
+            const STEP = 10000 / WIDTH;
+
+            let histogram = new Int16Array(WIDTH);
+            for (let i = 0; i < 10000; i++) {
+                let val = middleSquare4(i);
+                //console.log(histogram[Math.floor(val / STEP)] + " -> " + histogram[Math.floor(val / STEP)]++);
+                histogram[Math.floor(val / STEP)]++;
+            }
+            const SCALE = HEIGHT / Math.max.apply(null, histogram);
+
+            context.fillStyle = "Red";
+
+            for (let i = 0; i < WIDTH; i++) {
+                let y = Math.floor(histogram[i] * SCALE);
+                context.fillRect(i, HEIGHT - y, 1, y);
+            }
+        }
+    </script>
+</section>
+
+<section>
+    <h4 id="heading-randu-verteilung">2.3.1 RANDU Verteilung</h4>
+    <canvas id="canvas-randu-dist" width="730" height="550" style="border:1px solid #000000;"></canvas>
+    <script>
+        {
+            let c = document.getElementById("canvas-randu-dist");
+            let context = c.getContext("2d");
+
+            const WIDTH = 730;
+            const HEIGHT = 550;
+            const MAX = 2147483648;
+            const STEP_COUNT = 10000;
+            const STEP_SIZE = MAX / WIDTH;
+
+            let histogram = new Int32Array(WIDTH);
+            for (let i = 0; i < STEP_COUNT; i++) {
+                let val = randu(i * STEP_SIZE);
+                //console.log(histogram[Math.floor(val / STEP)] + " -> " + histogram[Math.floor(val / STEP)]++);
+                histogram[Math.floor(val / STEP_SIZE)]++;
+            }
+            const SCALE = HEIGHT / Math.max.apply(null, histogram);
+
+            context.fillStyle = "Red";
+
+            for (let i = 0; i < WIDTH; i++) {
+                let y = Math.floor(histogram[i] * SCALE);
+                context.fillRect(i, HEIGHT - y, 1, y);
+            }
+        }
+    </script>
+</section>
+
+<section>
+    <h4 id="heading-ms-2d">2.3.1 Middle-Square-Methode 2D</h4>
+    <canvas id="canvas-ms-2d" width="730" height="550" style="border:1px solid #000000;"></canvas>
+    <script>
+        {
+            let c = document.getElementById("canvas-ms-2d");
+            let context = c.getContext("2d");
+            const PIX_BUFFER = context.createImageData(1, 1); // only do this once per page
+            let d = PIX_BUFFER.data;                        // only do this once per page
+            d[0] = 255;
+            d[1] = 0;
+            d[2] = 0;
+            d[3] = 255;
+
+            /*context.moveTo(0, 0);
+        context.lineTo(200, 100);
+        context.stroke();*/
+
+            const WIDTH = 730;
+            const HEIGHT = 550;
+            const MAX = 10000;
+            const STEP_COUNT = MAX;
+            const STEP_SIZE = MAX / STEP_COUNT;
+            const SCALE_Y = HEIGHT / MAX;
+            const SCALE_X = WIDTH / STEP_COUNT;
+
+            function drawDot(x, y) {
+                context.fillRect(x - 1, HEIGHT - 1 - y - 1, 3, 3);
+            }
+
+            context.fillStyle = "Red";
+
+            for (let x = 0; x < STEP_COUNT; x++) {
+                let y = middleSquare4(Math.floor(x * STEP_SIZE));
+                drawDot(Math.floor(x * SCALE_X), Math.floor(y * SCALE_Y));
+            }
+        }
+    </script>
+</section>
+
+<section>
+    <h4 id="heading-randu-2d">2.3.1 RANDU 2D</h4>
+    <canvas id="canvas-randu-2d" width="730" height="500" style="border:1px solid #000000;"></canvas>
+    <script>
+        {
+            let c = document.getElementById("canvas-randu-2d");
+            let context = c.getContext("2d");
+            const PIX_BUFFER = context.createImageData(1, 1); // only do this once per page
+            let d = PIX_BUFFER.data;                        // only do this once per page
+            d[0] = 255;
+            d[1] = 0;
+            d[2] = 0;
+            d[3] = 255;
+
+            const WIDTH = 730;
+            const HEIGHT = 500;
+            const MAX = 2147483648;
+            const STEP_COUNT = 5000;
+            const STEP_SIZE = MAX / STEP_COUNT;
+            const SCALE_Y = HEIGHT / MAX;
+            const SCALE_X = WIDTH / STEP_COUNT;
+
+            function drawDot(x, y) {
+                //context.putImageData(PIX_BUFFER, x - 1, HEIGHT - 1 - y );
+                context.fillRect(x - 1, HEIGHT - 1 - y - 1, 3, 3);
+            }
+
+            context.fillStyle = "Red";
+
+            for (let x = 0; x < STEP_COUNT; x++) {
+                let y = randu(Math.floor(x * STEP_SIZE));
+                drawDot(Math.floor(x * SCALE_X), Math.floor(y * SCALE_Y));
+            }
+        }
+    </script>
+</section>
 
 <section>
     <h4 id="heading-ms-3d">2.3.1 Middle-Square-Methode 3D</h4>
@@ -334,21 +474,21 @@
 
 
 <section>
-<h3 id="heading-krypto">4.2. Kryptographisch sichere Zufallsgeneratoren</h3>
+    <h3 id="heading-krypto">4.2. Kryptographisch sichere Zufallsgeneratoren</h3>
 </section>
 
 <section>
-<h2 id="heading-schluss">5. Schluss</h2>
+    <h2 id="heading-schluss">5. Schluss</h2>
 </section>
 
 <section>
-<h2 id="heading-quellen">6. Quellenverzeichnis</h2>
+    <h2 id="heading-quellen">6. Quellenverzeichnis</h2>
 
-<h4 id="heading-bildqullen">6.1. Bildquellen, Visualisierung usw.</h4>
+    <h4 id="heading-bildqullen">6.1. Bildquellen, Visualisierung usw.</h4>
 </section>
 
 <section>
-<h4 id="heading-literaturverzeichnis">6.2. Literaturverzeichnis</h4>
+    <h4 id="heading-literaturverzeichnis">6.2. Literaturverzeichnis</h4>
 </section>
 
 <script>
@@ -366,6 +506,43 @@
         if (element.tagName === "SECTION")
             element.id = "slide-" + index++;
     }
+
+    function getSlideNumber() {
+        // id = "slide-xxx" or some other element
+        let id = window.location.hash.substring(1);
+        // go up the hierarchy until slide is found
+        while (!id.startsWith("slide-")) {
+            let element = document.getElementById(id);
+            id = element.parentElement.id;
+        }
+
+        return parseInt(id.substring(6));
+    }
+
+    function jumpSlidesRelative(count) {
+        let num = getSlideNumber();
+        let id = "slide-" + (num + count);
+        if (document.getElementById(id) != null)
+            location.hash = "#" + id;
+    }
+
+    function onKeyDown(event) {
+        switch (event.key) {
+            case "ArrowUp":
+                event.preventDefault();
+                jumpSlidesRelative(-1);
+                break;
+
+            case " ":
+            case "ArrowDown":
+                event.preventDefault();
+                jumpSlidesRelative(1);
+                break;
+        }
+    }
+
+    window.addEventListener('keydown', onKeyDown, false);
+
     if (window.location.hash === "")
         window.location.hash = "slide-0";
 

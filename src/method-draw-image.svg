@@ -1,0 +1,61 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+    <g>
+        <title>background</title>
+        <!--rect fill="#fff" id="canvas_background" height="402" width="582" y="-1" x="-1"/-->
+        <!--g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+            <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+        </g-->
+    </g>
+    <g>
+        <title>Layer 1</title>
+
+        <image x="50" y="0" width="730" height="550"
+               xlink:href="img/ms-dist.png" />
+
+        <line id="x-line" stroke-linecap="square"
+              x1="30" y1="550"
+              x2="790" y2="550"
+              stroke-width="4" stroke="#000" fill="none"/>
+
+        <path id="x-head" d="m 780,542 l 0,16 l 20,-8 z"
+              stroke-width="0" stroke="#000" fill="#000"/>
+
+        <line id="y-line" stroke-linecap="square"
+              x1="50" y1="570"
+              x2="50" y2="10"
+              stroke-width="4" stroke="#000" fill="none"/>
+
+        <path id="y-head" d="m42,20 l 16, 0 l -8,-20 z"
+              stroke-width="0" stroke="#000" fill="#000"/>
+
+        <text id="zero" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="25" y="590"
+              stroke-width="0" stroke="#000" fill="#000000">0</text>
+
+        <text id="x-val" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="760" y="590"
+              stroke-width="0" stroke="#000" fill="#000000">10</text>
+        <text id="x-val-sup" xml:space="preserve"
+              font-family="monospace" font-size="20"
+              x="788" y="580"
+              stroke-width="0" stroke="#000" fill="#000000">5</text>
+
+        <text id="x_axis" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="780" y="535"
+              stroke-width="0" stroke="#000" fill="#000000">n</text>
+
+        <text id="y_val" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="10" y="30"
+              stroke-width="0" stroke="#000" fill="#000000">10</text>
+
+        <text id="y_axis" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="65" y="30"
+              stroke-width="0" stroke="#000" fill="#000000">middle_square4(n)</text>
+    </g>
+</svg>
