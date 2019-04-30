@@ -11,7 +11,7 @@
         <title>Layer 1</title>
 
         <image x="50" y="0" width="730" height="550"
-               xlink:href="img/ms-dist.png" />
+               xlink:href="ms-dist.png" />
 
         <line id="x-line" stroke-linecap="square"
               x1="30" y1="550"
