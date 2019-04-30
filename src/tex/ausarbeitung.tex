@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
 
 %\usepackage{hyperref}
 %\usepackage{titling}
@@ -19,7 +20,7 @@
 
 %\title{\LARGE Pseudozuffalsfolgengeneratoren}
 \author{\Large Jan Schultke}
-\date{\large\today}
+\date{\large2019-04-03}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -30,6 +31,9 @@
 
 \setcounter{tocdepth}{3}
 %\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand\refname{8 Literaturverzeichnis}
+
+%\parskip = \baselineskip
 
 \begin{document}
 
@@ -45,14 +49,59 @@
 
     \section{Abstract}\label{sec:abstract}
     %\begin{abstract}
-    This is the paper's abstract \ldots
+    Pseudozufallsfolgengeneratoren (PZFG) sind eine seit den 1940ern weit verbreitete Methode zur Generierung von
+    Zufallsfolgen in Computersystemen.
+    Nahezu jede Programmiersprache und auch einige Betriebssysteme (u.A. Unix) machen Gebrauch von dieser Technologie.
+
+    \noindent\newline Diese einf\"uhrende Arbeit vermittelt Grundlagen des Entwurfs von PZFGs und gew\"unchste Eigenschaften und
+    Funktionsweisen.
+    Visuelle sowie stochastische Bewertungskriterien von PZFGs werden am Beispiel von John von Neumanns
+    Mittelquadratmethode und dem seit 1960 eingesetzten RANDU-Algorithmus vorgestellt.
+    Dies beinhalten unter anderem die Analyse von Werteverteilungen, Analyse der niederwertigsten Bitebene, Darstellung
+    der Generatorfunktion in zwei und drei Dimensionen und die Erweiterung dieses Konzepts auf den Spektraltest.
+
+    \noindent\newline Ebenso beinhaltet diese Arbeit einen Ausblick in moderne Verfahren und kryptographisch sichere PZFGs.
+    Prim\"ar wird hier die Tauglichkeit von Hashfunktionen sowie von Blockchiffren als PZFG betrachtet.
     %\end{abstract}
     \pagebreak
 
     %\addcontentsline{toc}{subsection}{\numberline{\thesection.2} Some Subsection}
 
     \section{Einf\"uhrung}\label{sec:intro}
-    This is time for all good men to come to the aid of their party!
+    Zufall.
+    In der Natur mit Leichtigkeit zu finden, wenn man nur dem Rauschen des Meeres lauscht oder die Verteilung von
+    K\"ornern im Sand betrachtet.
+    Mit einem W\"urfel oder Gl\"ucksrad kann er sogar zur beliebigen Zeit und in beliebigen Mengen erzeugt werden.
+    Doch wie kann ein Computer eben diesen Zufall erzeugen, wenn er eine volkommen deterministische Maschine ist?
+
+    \noindent\newline Ein erster Ansatz w\"are es diesen Zufall von Au{\ss}en in den Rechner einzuspeisen.
+    1940 entwickelte die RAND-Corporation eine spezielle Maschine die mithilfe eines Pulsgenerators Zufallswerte
+    erzeugt und ver\"offentlichte diese in \textit{"A Million Random Digits with 100,000 Normal Deviates"}.
+    Doch ob es sich um Lochkarten eines Prozessors aus den 1960ern oder um DDR4-Speicher eines 2019er Prozessors
+    handelt, das Einspeisen dieser Werte dauert immer noch l\"anger als einfache mathematische Operationen und
+    irgendwann gehen diese Werte auch zu neige.
+
+    \noindent\newline Auch kann jeder Rechner mit einer Instruktion zum Generieren echten Zufalls ausgestattet werden.
+    So besitzt der 1951er Ferranti Mark 1 eine von Alan Turing entwickelte Hardwareinstruktion, welche mithilfe
+    elektrischen Rauschens echte 20 Zufallsbits erzeugt.
+    Jedoch gehen durch solche Instruktionen viele klassiche Qualit\"aten eines deterministischen Algorithmus verloren
+    und die Implementierung erfordert zus\"atzliche Peripherieger\"ate.
+
+    \noindent\newline Eine L\"osung hierf\"ur sind Pseudozufallsfolgengeneratoren (PZFG).
+    Dabei werden scheinbar zuf\"allige Werte mithilfe von deterministischen Algorithmen erzeugt.
+    Ob sie nun eingesetzt werden um einen Klartext mit Zufallsbits zu verschl\"usseln, eine Lanschaft prozedurell
+    zu generieren, KI in Spielen unvorhersehbar handeln zu lassen oder Funktionen eines Unit-Tests mit zuf\"allig
+    erzeugten Werten zu speisen, Zufallsgeneratoren sind in so ziemlich jedem Computersystem zu finden.
+
+    \noindent\newline Ein erster Ansatz hierf\"ur ist die 1949 erstmals von John von Neumann vorgestellte
+    Mittelquadratmethode.
+    Im Kapitel 4 wird diese ausgiebig betrachtet und diverse Bewertungskriterien f\"ur PZFGs werden vorgestellt.
+    Von der Effizenz eines Algorithmus bis zu diversen stochastischen Tests werden Bewertungskriterien sowohl formal
+    als auch visuell pr\"asentiert.
+    In Kapitel 5 werden weiterhin Kongruenzgeneratoren betrachtet, welche bei weitem in historischen als auch modernen
+    Computersystemen am Meisten implementiert wurden.
+    Zu guter Letzt ist in Kapitel 6 ein Ausblick in moderne Verfahren zu finden, insbesondere der Einsatz von
+    Hashfunktionen und Blockchiffren.
     \pagebreak
 
     \addcontentsline{toc}{section}{\numberline{3}Definitionen}
@@ -91,7 +140,7 @@
     \addcontentsline{toc}{section}{\numberline{8} Literaturverzeichnis}
 
     %\paragraph{Outline}
-    .
+    %\section*{8 Literaturverzeichnis}\label{sec:bibliography}
     %Section~\ref{sec:previous work} gives account of previous work.
     %Our new and exciting results are described in Section~\ref{sec:results}.
     %Finally, Section~\ref{sec:conclusions} gives the conclusions.
@@ -99,6 +148,38 @@
     %    A much longer \LaTeXe{} example was written by Gil~\cite{Gil:02}.
 
     \bibliographystyle{abbrv}
-    \bibliography{main}
+    \begin{thebibliography}{9}
+        \bibitem{latexcompanion}
+        W. Killmann, W. Schindler; Bundesamt f\"ur Sicherheit in der Informationstechnik:
+        \textit{A proposal for Functionality classes for random number generators} (2011-09-18)
+        \\\texttt{\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Zertifizierung/Interpretationen/AIS_31_Functionality_classes_for_random_number_generators_e.pdf;jsessionid=90B3596E4BF995CBF33B698F0C6723D9.1_cid360?__blob=publicationFile&v=1}}
+        (abgerufen 2019-04-30)
+        %Addison-Wesley, Reading, Massachusetts, 1993.
+
+        \bibitem{seminumerical algorithms}
+        D. E. Knuth:
+        \textit{The Art of Computer Programming, Volume 2: Seminumerical Algorithms} (1997)
+        \\ Addison-Wesley
+
+        \bibitem{neumann}
+        J. Von Neumann:
+        \textit{Various techniques used in connection with random digits} (1951)
+        \\\texttt{\url{https://dornsifecms.usc.edu/assets/sites/520/docs/VonNeumann-ams12p36-38.pdf}}
+        (abgerufen 2019-04-30)
+        \\ National Bureau of Standards Applied Mathematics Series
+
+        \bibitem{einstein}
+        katleman; OpenJDK:
+        \textit{Random.java} (2014-03-04)
+        \\\texttt{\url{http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/tip/src/share/classes/java/util/Random.java}}
+        (abgerufen 2019-04-30)
+        \\ OpenJDK
+
+        \bibitem{aes}
+        N. Ferguson, B. Schneier, T. Kohno:
+        \textit{Cryptography Engineering: Design Principles and Practical Applications} (2010)
+        \\\texttt{\url{https://www.schneier.com/academic/paperfiles/fortuna.pdf}}
+        \\ Wiley Publishing
+    \end{thebibliography}
 
 \end{document}
