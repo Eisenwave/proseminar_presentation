@@ -5,34 +5,108 @@
     <meta content="">
 
     <style>
+        /*noinspection CssInvalidMediaFeature*/
+        @media screen and (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
         html {
             scroll-behavior: smooth;
         }
 
         body {
-            max-width: 800px;
+            max-width: 960px;
             margin-left: auto;
             margin-right: auto;
+            background: black;
+
+            font-family: "Noto Serif", sans-serif;
+            font-size: 18pt;
         }
 
         ol {
             counter-reset: item;
-            padding-left: 20px;
+            padding-left: 1em;
+        }
+
+        ul {
+            padding-left: 1em;
         }
 
         li {
             display: block;
+            margin: 0.25em 0;
         }
 
         li:before {
-            content: counters(item, ".") ". ";
-            counter-increment: item;
-            font-family: serif;
-            font-weight: bold;
+            margin-right: 1em;
         }
 
-        .li0:before {
-            content: "\FFED  ";
+        ol li:before {
+            content: counters(item, ".") ".";
+            counter-increment: item;
+        }
+
+        ul li:before {
+            content: "\FFED";
+        }
+
+        h1 {
+            text-decoration: underline
+        }
+
+        section {
+            max-height: 720px;
+            min-height: 720px;
+            border-bottom: #CC0000;
+            border-bottom-style: dashed;
+            margin-bottom: 125%;
+            margin-top: 125%;
+            background-image: linear-gradient(to bottom, white, rgb(233, 233, 233));
+        }
+
+        table {
+            font-size: inherit;
+        }
+
+        input {
+            font-size: inherit;
+        }
+
+        textarea {
+            font-size: inherit;
+        }
+
+        button {
+            font-size: inherit;
+        }
+
+        video {
+            image-rendering: pixelated;
+        }
+
+        .li-arrow:before {
+            content: "\21D2";
+        }
+
+        .li-dot:before {
+            content: "\FFED";
+        }
+
+        .li-square:before {
+            content: "\25A0"
+        }
+
+        .li-square-hollow:before {
+            content: "\25A1"
+        }
+
+        .li-num:before {
+            content: counters(item, ".") ".";
+            counter-increment: item;
+            font-weight: bold;
         }
 
         .li1 {
@@ -45,31 +119,54 @@
             padding-bottom: 2px;
         }
 
-        h1 {
-            font-family: sans-serif;
-            text-decoration: underline
+        .slide-header-container {
+            background-image: linear-gradient(to bottom, #1a5c7a, #002557);
+            box-shadow: 0 4px 4px 0 #666;
+            /*background: #002557;*/
+            min-height: 48px;
+            padding: 10px 0;
+            margin-bottom: 20px;
         }
 
-        h2 {
-            font-family: sans-serif;
-            font-weight: bold;
+        .slide-header {
+            font-family: "Noto Sans", sans-serif;
+            margin: 0 0 0 0;
+            display: inline-block;
+            color: white;
+            vertical-align: center;
+            max-width: 640px;
+            line-height: 125%;
         }
 
-        h3 {
-            font-family: sans-serif;
-            font-weight: bold;
+        .slide-header-right {
+            display: block;
+            float: right;
+            width: auto;
+            height: 40px;
+            color: white;
+            margin: 0 20px;
+            padding-left: 10px;
+
+            font-family: monospace;
+            font-size: 75%;
+            text-align: right;
+
+            border-left: white;
+            border-left-style: dashed;
+            border-left-width: 2px;
         }
 
-        h4 {
-            font-family: sans-serif;
-            font-weight: bold;
+        .header-tu-logo {
+            float: left;
+            width: auto;
+            height: 40px;
+            color: white;
+            margin: 0 20px;
         }
 
-        section {
-            margin-bottom: 100%;
-            margin-top: 100%;
-            min-height: 400px;
-            background-image: linear-gradient(to bottom, white, rgb(250, 250, 250), rgb(245, 245, 245), rgb(250, 250, 250), white);
+        .centered {
+            display: block;
+            margin: 0 auto;
         }
 
         .MathJax:focus, .mjx-chtml:focus, .MathJax_SVG:focus {
@@ -77,28 +174,50 @@
         }
     </style>
 
+    <script id="script-user-constants">
+        const HIDE_COMMENTS = true;
+        const NO_SMOOTH_SCROLL = true;
+        const DIAGRAM_FILL_STYLE = "#ff511a";
+
+        if (NO_SMOOTH_SCROLL)
+            document.getElementsByTagName("html").item(0).style.scrollBehavior = "auto";
+    </script>
+
     <script src='js/mathjax/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 </head>
 <body>
 
 <section style="margin-top: 0">
-    <h1 id="heading-top">Pseudozufallsfolgengeneratoren</h1>
+    <h1 id="heading-top" data-type="slide-header">Pseudozufallsfolgengeneratoren</h1>
 </section>
 
 <section>
-    <h2>Einführung (1 min)</h2>
-    <ul>
-        <li class="li0">Zufallsgeneratoren sind überall.</li>
-        <li class="li0">... und zwar seit sehr langer Zeit</li>
-    </ul>
-</section>
+    <h2 id="heading-inhaltsverzeichnis" data-type="slide-header">
+        Inhalt <span data-type="comment">(0.5 min)</span>
+    </h2>
 
+    <div style="font-size: 32pt; margin-left: 1em">
+        <ol>
+            <li class="li-big">
+                <a href="#heading-intro">Einführung</a>
+            </li>
+            <li class="li-big">
+                <a href="#heading-middle-square">Mittquadratmethode</a>
+            </li>
+            <li class="li-big">
+                <a href="#heading-kg">Kongruenzgeneratoren</a>
+            </li>
+            <li class="li-big">
+                <a href="#heading-modern">Moderne Verfahren</a>
+            </li>
+            <li class="li-big">
+                <a href="#heading-end">Schlusswort, Quellen</a>
+            </li>
+        </ol>
+    </div>
 
-<section>
-    <h2 id="heading-inhaltsverzeichnis">Inhaltsverzeichnis (1 min)</h2>
-
-    <ol>
+    <!--ol>
         <li class="li1">
             <a href="#heading-definitionen">Definitionen (1 min)</a>
         </li>
@@ -142,14 +261,12 @@
                         <li>Bewertung</li>
                     </ol>
                 </li>
-                <!--li class="li2">
+                <li class="li2">
                     Weitere Kongruenzgeneratoren
                     <ol>
                         <li>Fibonacci-Generatoren</li>
                     </ol>
-                </li-->
-            </ol>
-        </li>
+                </li>
 
         <li class="li1">
             <a href="#heading-modern">Moderne Verfahren</a>
@@ -168,76 +285,158 @@
                 <li>Literaturverzeichnis</li>
             </ol>
         </li>
-    </ol>
+    </ol-->
 </section>
 
-
 <section>
-    <h2 id="heading-definitionen">1. Definitionen</h2>
+    <h2 id="heading-intro" data-type="slide-header">1 Einführung <span data-type="comment">(1 min)</span></h2>
+
+    <div style="font-size: 20pt">
+        <ul>
+            <li>Computer sind deterministisch
+                <ul>
+                    <li class="li-arrow">Zufall muss irgendwie erzeugt werden
+                        <ol>
+                            <li class="li-num">extern erzeugt, eingelesen</li>
+                            <li class="li-num">globaler Zustand im Computer (Zeit, Mausbewegungen, ...)</li>
+                            <li class="li-num">mathematisch erzeugt (Zufallsgenerator)</li>
+                        </ol>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <div style="margin-left: 1em">
+            <h4 style="margin-bottom: 0.5em">Folge</h4>
+            \( (X_i) = (X_0, X_1, X_2, \ldots) \)
+
+            <h4 style="margin: 0.5em 0">Pseudozufallsfolgengenerator (abgek. Zufallsgenerator)</h4>
+            <ul style="margin-top: 0;">
+                <li>deterministischer Algorithmus</li>
+                <li>erzeugt Elemente der Folge</li>
+                <li>Elemente sind zufallsverteilt</li>
+            </ul>
+        </div>
+    </div>
+
 </section>
 
+<section>
+    <h4 data-type="slide-header">
+        1.1 Pokémon und globaler Zustand als echter Zufall <span data-type="comment">(1.5 min)</span>
+    </h4>
+    <div style="vertical-align: top">
+        <video id="video-pokemon" data-type="slide-video" width="400" height="360" loop
+               style="float: left; margin-right: 1em;">
+            <source src="video/pokemon_encounter.mp4" type="video/mp4">
+        </video>
+        <div style="font-size: 16pt">
+            <p>
+                \(
+                \begin{align}
+                \texttt{FFD3}, \texttt{FFD4} &\quad \text{ ZG-Adressen.} \\
+                \texttt{FF04} &\quad \text{ IO-Adresse.}
+                \end{align}
+                \)
+                <sup>[1]</sup>
+            </p>
+            <p>
+                \(
+                *\texttt{FFD3}_{i+1} = \begin{cases}
+                *\texttt{FFD3}_i + *\texttt{FF04} + 1, & Kampf \\
+                *\texttt{FFD3}_i + *\texttt{FF04} , & sonst
+                \end{cases}
+                \)
+            </p>
+            <p>
+                \(
+                *\texttt{FFD4}_{i+1} = \begin{cases}
+                *\texttt{FFD4}_i - *\texttt{FF04} - 1, & Wildniss \\
+                *\texttt{FFD4}_i - *\texttt{FF04}, & sonst
+                \end{cases}
+                \)
+            </p>
+        </div>
+    </div>
+
+    <!--script>
+        {
+            let vid = document.getElementById("video-pokemon");
+            vid.play();
+        }
+    </script-->
+</section>
 
 <section>
-    <h2 id="heading-middle-square">2. Middle-Square-Methode</h2>
+    <h3 id="heading-middle-square" data-type="slide-header">2 Mittquadratmethode</h3>
     <script src="js/MiddleSquareCalc.js"></script>
     <script src="js/RanduCalc.js"></script>
 
-    <h3 id="heading-ms-funktionsweise">2.1. Funktionsweise</h3>
-    <div style="text-align: center; width: 800px">
-        \[X_{i+1} = \Bigl\lfloor\dfrac{X_i^2}{100}\Bigr\rfloor \mod 10^5\]
-        <p>
-            Der aktuelle vier-stellige Zustand \(X_i\) wird quadriert und anschließend werden die 4 mittleren Stellen
-            des 8-stelligen Zwischenergebnises "ausgeschnitten".
-        </p>
+    <div class="centered" style="width: 80%">
+        <h3 id="heading-ms-funktionsweise">2.1. Funktionsweise</h3>
+        <div style="text-align: center;">
+            \[X_{i+1} = \Bigl\lfloor\dfrac{X_i^2}{100}\Bigr\rfloor \mod 10^5\]
+            <p>
+                Der aktuelle vier-stellige Zustand \(X_i\) wird quadriert und anschließend werden die 4 mittleren
+                Stellen
+                des 8-stelligen Zwischenergebnises "ausgeschnitten".
+            </p>
+        </div>
+
+        <div class="centered" style="width: fit-content;">
+            <table>
+                <tr>
+                    <td>\(X_i\)</td>
+                    <td>
+                        <input id="in" style="font-family: monospace" min="0" max="9999" type="number"
+                               oninput="onMiddleSquareInput(MS_IN, MS_OUT, MS_SQR)"/>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>\(X_i^2\)</td>
+                    <td>
+                        <textarea id="in_squared" rows="1" cols="8" readonly></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>\(X_{i+1}\)</td>
+                    <td>
+                        <textarea id="out" rows="1" cols="8" readonly></textarea>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                        <button id="ms-button"
+                                onclick="onMiddleSquareButton(MS_IN, MS_OUT, MS_SQR)">
+                            \(X_i = X_{i+1}\)
+                        </button>
+                    </td>
+                    <td>
+                        <button style="font-family: sans-serif; font-weight: bold"
+                                onclick="turbo(MS_BUTTON, 50, 50)">
+                            50x
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <table>
-        <tr>
-            <td>\(X_i\)</td>
-            <td>
-                <input id="in" style="font-family: monospace" min="0" max="9999" type="number"
-                       oninput="onMiddleSquareInput(MS_IN, MS_OUT, MS_SQR)"/>
-            </td>
-
-        </tr>
-        <tr>
-            <td>\(X_i^2\)</td>
-            <td>
-                <textarea id="in_squared" rows="1" cols="8" readonly></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td>\(X_{i+1}\)</td>
-            <td>
-                <textarea id="out" rows="1" cols="8" readonly></textarea>
-            </td>
-        </tr>
-        <tr>
-
-            <td>
-                <button id="ms-button"
-                        onclick="onMiddleSquareButton(MS_IN, MS_OUT, MS_SQR)">
-                    \(X_i = X_{i+1}\)
-                </button>
-            </td>
-            <td>
-                <button style="font-family: sans-serif; font-weight: bold"
-                        onclick="turbo(MS_BUTTON, 50, 50)">
-                    50x
-                </button>
-            </td>
-        </tr>
-    </table>
 </section>
 
 
 <section>
-    <h3 id="heading-ms-bewertungskriterien">2.2. Bewertungskriterien von PZG anhand der Middle-Square-Methode</h3>
+    <h5 id="heading-ms-bewertungskriterien" data-type="slide-header">
+        2.2 Bewertungskriterien von PZG anhand der Mittquadratmethode
+    </h5>
 </section>
 
 <section>
-    <h4 id="heading-ms-verteilung">2.3.1 Middle-Square-Methode Verteilung</h4>
-    <canvas id="canvas-ms-dist" width="730" height="550" style="border:1px solid #000000;"></canvas>
+    <h4 id="heading-ms-verteilung" data-type="slide-header">2.3.1 Mittquadratmethode-Verteilung</h4>
+    <img class="centered" src="img/ms-dist-graph.svg" alt="Middle-Square Distribution">
+    <!--canvas id="canvas-ms-dist" width="730" height="550" style="border:1px solid #000000;"></canvas>
     <script>
         {
             let c = document.getElementById("canvas-ms-dist");
@@ -255,51 +454,20 @@
             }
             const SCALE = HEIGHT / Math.max.apply(null, histogram);
 
-            context.fillStyle = "Red";
+            context.fillStyle = DIAGRAM_FILL_STYLE;
 
             for (let i = 0; i < WIDTH; i++) {
                 let y = Math.floor(histogram[i] * SCALE);
                 context.fillRect(i, HEIGHT - y, 1, y);
             }
         }
-    </script>
+    </script-->
 </section>
 
 <section>
-    <h4 id="heading-randu-verteilung">2.3.1 RANDU Verteilung</h4>
-    <canvas id="canvas-randu-dist" width="730" height="550" style="border:1px solid #000000;"></canvas>
-    <script>
-        {
-            let c = document.getElementById("canvas-randu-dist");
-            let context = c.getContext("2d");
-
-            const WIDTH = 730;
-            const HEIGHT = 550;
-            const MAX = 2147483648;
-            const STEP_COUNT = 10000;
-            const STEP_SIZE = MAX / WIDTH;
-
-            let histogram = new Int32Array(WIDTH);
-            for (let i = 0; i < STEP_COUNT; i++) {
-                let val = randu(i * STEP_SIZE);
-                //console.log(histogram[Math.floor(val / STEP)] + " -> " + histogram[Math.floor(val / STEP)]++);
-                histogram[Math.floor(val / STEP_SIZE)]++;
-            }
-            const SCALE = HEIGHT / Math.max.apply(null, histogram);
-
-            context.fillStyle = "Red";
-
-            for (let i = 0; i < WIDTH; i++) {
-                let y = Math.floor(histogram[i] * SCALE);
-                context.fillRect(i, HEIGHT - y, 1, y);
-            }
-        }
-    </script>
-</section>
-
-<section>
-    <h4 id="heading-ms-2d">2.3.1 Middle-Square-Methode 2D</h4>
-    <canvas id="canvas-ms-2d" width="730" height="550" style="border:1px solid #000000;"></canvas>
+    <h4 id="heading-ms-2d" data-type="slide-header">2.3.1 Mittquadratmethode 2D</h4>
+    <img class="centered" src="img/ms-2d-graph.svg" alt="Mittquadrat-Graph">
+    <!--canvas id="canvas-ms-2d" width="730" height="550" style="border:1px solid #000000;"></canvas>
     <script>
         {
             let c = document.getElementById("canvas-ms-2d");
@@ -327,64 +495,97 @@
                 context.fillRect(x - 1, HEIGHT - 1 - y - 1, 3, 3);
             }
 
-            context.fillStyle = "Red";
+            context.fillStyle = DIAGRAM_FILL_STYLE;
 
             for (let x = 0; x < STEP_COUNT; x++) {
                 let y = middleSquare4(Math.floor(x * STEP_SIZE));
                 drawDot(Math.floor(x * SCALE_X), Math.floor(y * SCALE_Y));
             }
         }
-    </script>
+    </script-->
 </section>
 
 <section>
-    <h4 id="heading-randu-2d">2.3.1 RANDU 2D</h4>
-    <canvas id="canvas-randu-2d" width="730" height="500" style="border:1px solid #000000;"></canvas>
+    <h2 id="heading-ms-lsb" data-type="slide-header">2.4 Mittquadrat: LSB-Analyse</h2>
+    <div style="font-size: 20pt">
+        <table style="margin-left: 1em;">
+            <tr>
+                <td>
+                    <canvas id="canvas-ms-lsb" width="12" height="12"
+                            class="centered"
+                            style="border: 1px solid #000000; image-rendering: pixelated; width: 400px; height: 400px;">
+
+                    </canvas>
+                </td>
+
+                <td style="vertical-align: top; ">
+                    <ul>
+                        <li class="li-square-hollow">gerade</li>
+                        <li class="li-square">ungerade</li>
+                    </ul>
+                    <p style="margin-left: 1em">
+                        \( X_0 = 6239 \)
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <ul>
+            <li>Modulodivision durch 10<sup>5</sup>
+                <ul>
+                    <li class="li-arrow">niederwertigstes Bit ändert sich manchmal</li>
+                </ul>
+            </li>
+            <li>Schleife nach max. 110 Schritten erreicht
+                <ul>
+                    <li class="li-arrow">Werte bleiben ab dann gerade</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
     <script>
         {
-            let c = document.getElementById("canvas-randu-2d");
-            let context = c.getContext("2d");
+            let canvas = document.getElementById("canvas-ms-lsb");
+            let context = canvas.getContext("2d");
             const PIX_BUFFER = context.createImageData(1, 1); // only do this once per page
             let d = PIX_BUFFER.data;                        // only do this once per page
-            d[0] = 255;
+            d[0] = 0;
             d[1] = 0;
             d[2] = 0;
             d[3] = 255;
 
-            const WIDTH = 730;
-            const HEIGHT = 500;
-            const MAX = 2147483648;
-            const STEP_COUNT = 5000;
-            const STEP_SIZE = MAX / STEP_COUNT;
-            const SCALE_Y = HEIGHT / MAX;
-            const SCALE_X = WIDTH / STEP_COUNT;
+            const WIDTH = canvas.width;
+            const HEIGHT = canvas.height;
 
-            function drawDot(x, y) {
-                //context.putImageData(PIX_BUFFER, x - 1, HEIGHT - 1 - y );
-                context.fillRect(x - 1, HEIGHT - 1 - y - 1, 3, 3);
-            }
+            context.fillStyle = DIAGRAM_FILL_STYLE;
 
-            context.fillStyle = "Red";
+            /*let maxPeriod = 0; // = 110
+            for (let i = 0; i < 10000; i++) {
+                let previous = new Set();
 
-            for (let x = 0; x < STEP_COUNT; x++) {
-                let y = randu(Math.floor(x * STEP_SIZE));
-                drawDot(Math.floor(x * SCALE_X), Math.floor(y * SCALE_Y));
+                for (let j = i, p = 0; !previous.has(j); j = middleSquare4(j), p++) {
+                    if (p > maxPeriod) {
+                        maxPeriod = p;
+                        console.log(i + " -> " + maxPeriod);
+                    }
+                    previous.add(j);
+                }
+            }*/
+
+            for (let y = 0, val = 6239; y < HEIGHT; y++) {
+                for (let x = 0; x < WIDTH; x++, val = middleSquare4(val)) {
+                    if ((val & 1) === 1)
+                        context.putImageData(PIX_BUFFER, x, y);
+                    //val = middleSquare4(val);
+                }
             }
         }
     </script>
 </section>
 
 <section>
-    <h4 id="heading-ms-3d">2.3.1 Middle-Square-Methode 3D</h4>
-
-    <embed src="middle-square-vis.html"
-           style="border: 2px black;"
-           width="800" height="600">
-</section>
-
-
-<section>
-    <h2 id="heading-kg">3. Kongruenzgeneratoren</h2>
+    <h2 id="heading-kg" data-type="slide-header">3. Kongruenzgeneratoren</h2>
 
     <h3 id="heading-kg-funktionsweise">3.1. Funktionsweise</h3>
 
@@ -417,7 +618,7 @@
 
 
 <section>
-    <h3 id="heading-randu">3.2. RANDU (Multiplikative Kongruenzgeneratoren)</h3>
+    <h4 id="heading-randu" data-type="slide-header">3.2 RANDU (Multiplikative Kongruenzgeneratoren)</h4>
     <div style="width:800px">
         \[ \begin{aligned}
         X_{i+1} &= (X_i \cdot 65539) \bmod 2^{31} \\
@@ -459,39 +660,272 @@
 </section>
 
 <section>
-    <h3 id="heading-lkg">3.3. Lineare Kongruenzgeneratoren</h3>
+    <h2 id="heading-randu-verteilung" data-type="slide-header">3.3 RANDU: Verteilung</h2>
+    <img class="centered" src="img/randu-dist-graph.svg" alt="RANDU-Verteilung"
+         style="width: 720px; height: auto">
+    <div class="centered" style="width: fit-content">
+        \(
+        \begin{align}
+        65539x &\equiv a & \pmod{2^{31}} \\
+        x &\equiv 65539^{-1} \cdot a & \pmod{2^{31}}
+        \end{align}
+        \)
+    </div>
+
+    <!--canvas id="canvas-randu-dist" width="730" height="550" style="border:1px solid #000000;"></canvas>
+    <script>
+        {
+            let c = document.getElementById("canvas-randu-dist");
+            let context = c.getContext("2d");
+
+            const WIDTH = 730;
+            const HEIGHT = 550;
+            const MAX = 2147483648;
+            const STEP_COUNT = 10000;
+            const STEP_SIZE = MAX / WIDTH;
+
+            let histogram = new Int32Array(WIDTH);
+            for (let i = 0; i < STEP_COUNT; i++) {
+                let val = randu(i * STEP_SIZE);
+                //console.log(histogram[Math.floor(val / STEP)] + " -> " + histogram[Math.floor(val / STEP)]++);
+                histogram[Math.floor(val / STEP_SIZE)]++;
+            }
+            const SCALE = HEIGHT / Math.max.apply(null, histogram);
+
+            context.fillStyle = DIAGRAM_FILL_STYLE;
+
+            for (let i = 0; i < WIDTH; i++) {
+                let y = Math.floor(histogram[i] * SCALE);
+                context.fillRect(i, HEIGHT - y, 1, y);
+            }
+        }
+    </script-->
+</section>
+
+<section>
+    <h2 id="heading-randu-lsb" data-type="slide-header">3.4 RANDU: LSB-Analyse</h2>
+    <div style="font-size: 20pt">
+        <style>
+            .small-canvas {
+                border: 1px solid #000000;
+                image-rendering: pixelated;
+                width: 150px;
+                height: 150px;
+            }
+        </style>
+        <table style="border-spacing: 1em">
+            <tr>
+                <td>
+                    <canvas id="canvas-randu-lsb-even" width="30" height="30" class="small-canvas"></canvas>
+                </td>
+                <td>
+                    \( (X_i), \quad 2 \mid X_0 \implies 2 \mid X_i \)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="canvas-randu-lsb-odd" width="30" height="30" class="small-canvas"></canvas>
+                </td>
+                <td>
+                    \( (X_i), \quad 2 \nmid X_0 \implies 2 \nmid X_i \)
+                </td>
+            </tr>
+        </table>
+
+        <ul>
+            <li>Multiplikation mit ungerader Zahl</li>
+            <li>Modulodivision 2<sup>31</sup> ändert nie niederwertigstes Bit
+                <ul>
+                    <li class="li-arrow">gerade Werte bleiben gerade, analog für ungerade Werte</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        {
+            let canvasEven = document.getElementById("canvas-randu-lsb-even");
+            let canvasOdd = document.getElementById("canvas-randu-lsb-odd");
+
+            let start = 2;
+            for (let canvas of [canvasEven, canvasOdd]) {
+                let context = canvas.getContext("2d");
+                const PIX_BUFFER = context.createImageData(1, 1); // only do this once per page
+                let d = PIX_BUFFER.data;                        // only do this once per page
+                d[0] = 0;
+                d[1] = 0;
+                d[2] = 0;
+                d[3] = 255;
+
+                const WIDTH = canvas.width;
+                const HEIGHT = canvas.height;
+
+                context.fillStyle = DIAGRAM_FILL_STYLE;
+
+                for (let x = 0, val = start; x < WIDTH; x++) {
+                    for (let y = 0; y < HEIGHT; y++) {
+                        if (val % 2 === 1)
+                            context.putImageData(PIX_BUFFER, x, HEIGHT - 1 - y);
+                        val = randu(val);
+                    }
+                }
+                start = 1;
+            }
+        }
+    </script>
+</section>
+
+<section>
+    <h2 id="heading-randu-2d" data-type="slide-header">3.4 RANDU: 2D</h2>
+    <img class="centered" src="img/randu-2d-graph.svg" alt="RANDU Graph">
+    <!--canvas id="canvas-randu-2d" width="730" height="550" style="border:1px solid #000000;"></canvas>
+    <script>
+        {
+            let canvas = document.getElementById("canvas-randu-2d");
+            let context = canvas.getContext("2d");
+            const PIX_BUFFER = context.createImageData(1, 1); // only do this once per page
+            let d = PIX_BUFFER.data;                        // only do this once per page
+            d[0] = 255;
+            d[1] = 0;
+            d[2] = 0;
+            d[3] = 255;
+
+            const WIDTH = canvas.width;
+            const HEIGHT = canvas.height;
+            const MAX = 2147483648;
+            const STEP_COUNT = 5000;
+            const STEP_SIZE = MAX / STEP_COUNT;
+            const SCALE_Y = HEIGHT / MAX;
+            const SCALE_X = WIDTH / STEP_COUNT;
+
+            function drawDot(x, y) {
+                //context.putImageData(PIX_BUFFER, x - 1, HEIGHT - 1 - y );
+                context.fillRect(x - 1, HEIGHT - 1 - y - 1, 3, 3);
+            }
+
+            context.fillStyle = DIAGRAM_FILL_STYLE;
+
+            for (let x = 0; x < STEP_COUNT; x++) {
+                let y = randu(Math.floor(x * STEP_SIZE));
+                drawDot(Math.floor(x * SCALE_X), Math.floor(y * SCALE_Y));
+            }
+        }
+    </script-->
+</section>
+
+<section>
+    <h2 id="heading-ms-3d" data-type="slide-header">3.5 RANDU 3D</h2>
+
+    <div class="centered" style="width: fit-content">
+        <embed src="middle-square-vis.html"
+               style="border: 2px black;"
+               width="800" height="600">
+    </div>
+</section>
+
+<section>
+    <h3 id="heading-lkg" data-type="slide-header">3.3. Lineare Kongruenzgeneratoren</h3>
 </section>
 
 
 <section>
-    <h2 id="heading-modern">4. Moderne Verfahren</h2>
+    <h2 id="heading-modern" data-type="slide-header">4. Moderne Verfahren</h2>
 </section>
 
 
 <section>
-    <h3 id="heading-zuverlaessig">4.1. Zuverlässige Pseudozufallsgeneratoren</h3>
+    <h3 id="heading-zuverlaessig" data-type="slide-header">4.1. Zuverlässige Pseudozufallsgeneratoren</h3>
 </section>
 
 
 <section>
-    <h3 id="heading-krypto">4.2. Kryptographisch sichere Zufallsgeneratoren</h3>
+    <h3 id="heading-krypto" data-type="slide-header">4.2. Kryptographisch sichere Zufallsgeneratoren</h3>
 </section>
 
 <section>
-    <h2 id="heading-schluss">5. Schluss</h2>
+    <h2 id="heading-end" data-type="slide-header">5. Schluss</h2>
 </section>
 
 <section>
-    <h2 id="heading-quellen">6. Quellenverzeichnis</h2>
+    <h2 id="heading-quellen" data-type="slide-header">6. Quellenverzeichnis</h2>
+    <sup>[1]</sup> <a
+        href="https://web.archive.org/web/20190105083840/http://tasvideos.org/GameResources/GBx/Pokemon.html">
+    http://tasvideos.org/GameResources/GBx/Pokemon.html
+</a> (2010-08-30)
 
-    <h4 id="heading-bildqullen">6.1. Bildquellen, Visualisierung usw.</h4>
+    <h4 id="heading-bildqullen" data-type="slide-header">6.1. Bildquellen, Visualisierung usw.</h4>
 </section>
 
 <section>
-    <h4 id="heading-literaturverzeichnis">6.2. Literaturverzeichnis</h4>
+    <h4 id="heading-literaturverzeichnis" data-type="slide-header">6.2. Literaturverzeichnis</h4>
 </section>
+
+<header id="slide-header-container" class="slide-header-container">
+    <img src="img/tu-dresden-logo-white.svg" alt="TU-Dresden" class="header-tu-logo"/>
+</header>
+
+<div id="slide-header-right" class="slide-header-right">
+    Slide
+    <span data-type="slide-num"></span><br>
+    <span data-type="timer"></span>
+</div>
 
 <script>
+    let SLIDE_COUNT = 0;
+    { // HTML preprocess
+        const SLIDE_HEADER_CONTAINER = document.getElementById("slide-header-container");
+        const SLIDE_HEADER_RIGHT = document.getElementById("slide-header-right");
+
+        for (let slide of document.querySelectorAll("*")) {
+            if (slide.tagName !== "SECTION") continue;
+            let index = SLIDE_COUNT;
+            slide.id = "slide-" + index;
+
+            SLIDE_COUNT++;
+
+            let child = slide.querySelector("[data-type=slide-header]");
+            if (child === null) continue;
+            child.className = "slide-header";
+
+            let containerInstance = SLIDE_HEADER_CONTAINER.cloneNode(true);
+            let rightInstance = SLIDE_HEADER_RIGHT.cloneNode(true);
+
+            //slideHeaderInstance.setAttribute("hidden", "");
+            slide.prepend(containerInstance);
+            containerInstance.appendChild(child);
+            containerInstance.appendChild(rightInstance);
+
+            containerInstance.id = "slide-header-" + index;
+            rightInstance.id = "slide-header-right-" + index;
+
+            for (let element of slide.querySelectorAll("[data-type=slide-num]"))
+                element.append(index.toString().padStart(2, "0"));
+        }
+        SLIDE_HEADER_CONTAINER.setAttribute("hidden", "hidden");
+
+        if (HIDE_COMMENTS)
+            for (let element of document.querySelectorAll("[data-type=comment]"))
+                element.remove();
+
+        let timers = document.querySelectorAll("[data-type=timer]");
+        console.log(timers);
+
+        let startMillis = Date.now();
+
+        function updateTimers() {
+            let date = new Date(Date.now() - startMillis);
+            for (let t of timers) {
+                while (t.firstChild)
+                    t.removeChild(t.firstChild);
+                t.append(date.getUTCMinutes().toString().padStart(2, "0") + ":" +
+                    date.getUTCSeconds().toString().padStart(2, "0"));
+            }
+        }
+
+        updateTimers();
+        setInterval(updateTimers, 1000);
+    }
+
     // make constants available to buttons and other elements
     const MS_IN = document.getElementById("in");
     const MS_OUT = document.getElementById("out");
@@ -501,30 +935,46 @@
     const RANDU_OUT = document.getElementById("randu-out");
     const RANDU_BUTTON = document.getElementById("randu-button");
 
-    let index = 0;
-    for (let element of document.querySelectorAll("*")) {
-        if (element.tagName === "SECTION")
-            element.id = "slide-" + index++;
-    }
-
-    function getSlideNumber() {
-        // id = "slide-xxx" or some other element
-        let id = window.location.hash.substring(1);
-        // go up the hierarchy until slide is found
-        while (!id.startsWith("slide-")) {
-            let element = document.getElementById(id);
-            id = element.parentElement.id;
+    function getSlideNumber(element = null) {
+        if (element === null) {
+            let hash = location.hash;
+            if (hash === "")
+                return 0;
+            let id = hash.substring(1);
+            element = document.getElementById(id);
         }
 
-        return parseInt(id.substring(6));
+        try {
+            // id = "slide-xxx" or some other element
+            // go up the hierarchy until slide is found
+            while (!element.id.match("slide-[0-9]+")) {
+                element = element.parentElement;
+                if (element == null)
+                    return 0;
+            }
+
+            return parseInt(element.id.substring(6));
+        } catch (e) {
+            return 0;
+        }
+    }
+
+    function jumpToSlide(num) {
+        let id = "slide-" + num;
+        let slide = document.getElementById(id);
+        if (slide != null)
+            location.hash = "#" + id;
+
+        for (let vid of slide.querySelectorAll("[data-type=slide-video]"))
+            vid.play();
     }
 
     function jumpSlidesRelative(count) {
         let num = getSlideNumber();
-        let id = "slide-" + (num + count);
-        if (document.getElementById(id) != null)
-            location.hash = "#" + id;
+        jumpToSlide(Math.max(0, Math.min(SLIDE_COUNT - 1, num + count)));
     }
+
+    jumpSlidesRelative(0);
 
     function onKeyDown(event) {
         switch (event.key) {
@@ -541,10 +991,19 @@
         }
     }
 
-    window.addEventListener('keydown', onKeyDown, false);
+    function onHashChange(event) {
 
-    if (window.location.hash === "")
-        window.location.hash = "slide-0";
+        let targetId = event.newURL.substring(event.newURL.indexOf("#") + 1);
+        if (!targetId.match("slide-[0-9]+")) {
+            event.preventDefault();
+            let target = document.getElementById(targetId);
+            jumpToSlide(getSlideNumber(target));
+            console.log(targetId);
+        }
+    }
+
+    window.addEventListener('keydown', onKeyDown, false);
+    window.addEventListener("hashchange", onHashChange, false);
 
     function turbo(button, count, millis) {
         for (let i = 0; i < count; i++) {

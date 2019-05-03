@@ -1,0 +1,59 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+    <g>
+        <title>background</title>
+        <!--rect fill="#fff" id="canvas_background" height="402" width="582" y="-1" x="-1"/-->
+        <!--g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+            <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+        </g-->
+    </g>
+    <g>
+        <title>Layer 1</title>
+
+        <rect x="51" y="275" width="730" height="275" fill="#ff511a"/>
+        <line id="x-line" stroke-linecap="square"
+              x1="30" y1="550"
+              x2="790" y2="550"
+              stroke-width="3" stroke="#000" fill="none"/>
+
+        <path id="x-head" d="m 780,544 l 0,12 l 20,-6 z"
+              stroke-width="0" stroke="#000" fill="#000"/>
+
+        <line id="y-line" stroke-linecap="square"
+              x1="50" y1="570"
+              x2="50" y2="10"
+              stroke-width="3" stroke="#000" fill="none"/>
+
+        <path id="y-head" d="m44,20 l 12, 0 l -6,-20 z"
+              stroke-width="0" stroke="#000" fill="#000"/>
+
+        <text id="zero" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="25" y="590"
+              stroke-width="0" stroke="#000" fill="#000000">0</text>
+
+        <text id="x-val" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="760" y="590"
+              stroke-width="0" stroke="#000" fill="#000000">2</text>
+        <text id="x-val-sup" xml:space="preserve"
+              font-family="monospace" font-size="20"
+              x="775" y="580"
+              stroke-width="0" stroke="#000" fill="#000000">31</text>
+
+        <text id="x-axis" xml:space="preserve"
+              font-family="monospace" font-size="24" font-weight="bold"
+              x="780" y="535"
+              stroke-width="0" stroke="#000" fill="#000000">n</text>
+
+        <text id="y-val" xml:space="preserve"
+              font-family="monospace" font-size="24"
+              x="25" y="285"
+              stroke-width="0" stroke="#000" fill="#000000">1</text>
+
+        <text id="y-axis" xml:space="preserve"
+              font-family="monospace" font-size="24" font-weight="bold"
+              x="65" y="30"
+              stroke-width="0" stroke="#000" fill="#000000">häufigkeit(n)</text>
+    </g>
+</svg>
