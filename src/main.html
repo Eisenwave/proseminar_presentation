@@ -103,6 +103,14 @@
             content: "\25A1"
         }
 
+        .li-fat-plus:before {
+            content: "\2795"
+        }
+
+        .li-fat-minus:before {
+            content: "\2796"
+        }
+
         .li-num:before {
             content: counters(item, ".") ".";
             counter-increment: item;
@@ -587,31 +595,31 @@
 <section>
     <h2 id="heading-kg" data-type="slide-header">3. Kongruenzgeneratoren</h2>
 
-    <h3 id="heading-kg-funktionsweise">3.1. Funktionsweise</h3>
+    <!-- h3 id="heading-kg-funktionsweise">3.1. Funktionsweise</h3-->
 
-    <div style="width: 800px">
-        <h5 style="text-align: center">Allgemeiner Kongruenzgenerator:</h5>
-        \[ X_{i+1} = \Biggl(\Bigl(\sum_{k=0}^n a_k X_{i-k}\Bigr) + b\Biggr) \bmod m \]
-
-        <p style="text-align: center">
-            Das nächste Element \(X_{i}\) der Folge wird duch Multiplizieren der vorherigen \(X_{i-k}\) mit den
-            dazugehörigen konstanten Faktoren \(a_{k}\) und dem Addieren der Konstante \(b\) erzeugt.
-        </p>
-        <p style="text-align: center">
-            Z.B. Fibonacci-Generator: \(a_0 = a_1 = 1,\, b = 0,\, m \in \{0, 1, 2, 3, 5, \ldots\}\)
-        </p>
-
-        <h5 style="text-align: center">Linearer Kongruenzgenerator:</h5>
-        \[ X_{i+1} = (a \cdot X_{i} + b) \bmod m \]
-        <p style="text-align: center">
-            Sonderfall für \(a_{k \gt 0} = 0\). Hierbei \(a := a_{0}\).
-        </p>
-
-        <h5 style="text-align: center">Multiplikativer Kongruenzgenerator:</h5>
-        \[ X_{i+1} = (a \cdot X_{i}) \bmod m \]
-        <p style="text-align: center">
+    <div class="centered" style="width: fit-content; margin-left: 1em">
+        <h4>Multiplikativer Kongruenzgenerator:</h4>
+        \( X_{i+1} = (a \cdot X_{i}) \bmod m, \quad\quad\quad\quad a \in \mathbb{Z}_m \)
+        <!--p style="text-align: center">
             Sonderfall für \(b = 0\)
-        </p>
+        </p-->
+
+        <h4>Linearer Kongruenzgenerator:</h4>
+        \( X_{i+1} = (a \cdot X_{i} + b) \bmod m, \quad\quad a, b \in \mathbb{Z}_m \)
+        <!--p style="text-align: center">
+            Sonderfall für \(a_{k \gt 0} = 0\). Hierbei \(a := a_{0}\).
+        </p-->
+
+        <h4>Allgemeiner Kongruenzgenerator:</h4>
+        \(
+        X_{i+1} = \Biggl(\Bigl( \displaystyle\sum_{k=0}^n a_k X_{i-k}\Bigr) + b\Biggr) \bmod m, \quad
+        a_k, b \in \mathbb{Z}_m
+        \)
+
+        <ul>
+            <li>multipliziere mehrere vorherige Werte \(X_{i-k}\) mit \( a_k \) und summiere</li>
+            <li>z.B. Fibonacci-Generator: \(a_0 = a_1 = 1,\, b = 0,\, m \in \{0, 1, 2, 3, 5, \ldots\}\)</li>
+        </ul>
 
     </div>
 </section>
@@ -619,44 +627,55 @@
 
 <section>
     <h4 id="heading-randu" data-type="slide-header">3.2 RANDU (Multiplikative Kongruenzgeneratoren)</h4>
-    <div style="width:800px">
-        \[ \begin{aligned}
+    <div style="font-size: 20pt; width: fit-content; margin-left: 1em">
+        <ul style="margin-bottom: 2em">
+            <li>in IBM-Mainframes, Fortran seit 1960ern verwendet</li>
+            <li>mehr als ein Jahrzehnt im Einsatz</li>
+            <li>"<i>[RANDU] should never have been used.</i>" - D.E. Knuth</li>
+        </ul>
+
+        \( \begin{aligned}
         X_{i+1} &= (X_i \cdot 65539) \bmod 2^{31} \\
         &= (X_i \cdot (2^{16}+3) ) \bmod 2^{31} \\
         &= (X_i + X_i + X_i + (X_i \ll 16) ) \mathrel{\&} (2^{31}-1)
-        \end{aligned} \]
+        \end{aligned} \)
+
+
+        <div>
+            <table style="margin-top: 2em">
+                <tr>
+                    <td>\(X_i\):</td>
+                    <td>
+                        <input id="randu-in" style="font-family: monospace" min="0" max="2147483648" type="number"
+                               oninput="onRanduInput(RANDU_IN, RANDU_OUT)"/>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>\(X_{i+1}\):</td>
+                    <td>
+                        <textarea id="randu-out" rows="1" cols="10" readonly></textarea>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                        <button id="randu-button"
+                                style="font-family: serif; font-weight: bold"
+                                onclick="onRanduButton(RANDU_IN, RANDU_OUT)">
+                            \(X_i = X_{i+1}\)
+                        </button>
+                    </td>
+                    <td>
+                        <button style="font-family: sans-serif; font-weight: bold"
+                                onclick="turbo(RANDU_BUTTON, 50, 50)">
+                            50x
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-
-    <table>
-        <tr>
-            <td>\(X_i\):</td>
-            <td>
-                <input id="randu-in" style="font-family: monospace" min="0" max="2147483648" type="number"
-                       oninput="onRanduInput(RANDU_IN, RANDU_OUT)"/>
-            </td>
-
-        </tr>
-        <tr>
-            <td>\(X_{i+1}\):</td>
-            <td>
-                <textarea id="randu-out" rows="1" cols="10" readonly></textarea>
-            </td>
-        </tr>
-        <tr>
-
-            <td>
-                <button id="randu-button"
-                        style="font-family: serif; font-weight: bold" onclick="onRanduButton(RANDU_IN, RANDU_OUT)">
-                    \(X_i = X_{i+1}\)
-                </button>
-            </td>
-            <td>
-                <button style="font-family: sans-serif; font-weight: bold" onclick="turbo(RANDU_BUTTON, 50, 50)">
-                    50x
-                </button>
-            </td>
-        </tr>
-    </table>
 </section>
 
 <section>
@@ -824,9 +843,169 @@
 </section>
 
 <section>
-    <h3 id="heading-lkg" data-type="slide-header">3.3. Lineare Kongruenzgeneratoren</h3>
+    <h3 id="heading-lkg" data-type="slide-header">3.6 Lineare Kongruenzgeneratoren</h3>
+    <div style="font-size: 20pt; margin-left: 1em">
+        \( X_{i+1} = (a \cdot X_{i} + b) \bmod m, \quad\quad a, b \in \mathbb{Z}_m \)
+
+        <ul>
+            <li>am weitesten verbreitete Zufallsgeneratoren</li>
+            <li class="li-fat-plus">Periodenlänge bekannt und sehr groß
+                <ol>
+                    <li class="li-num">\(m\) und \(b\) teilerfremd</li>
+                    <li class="li-num">Jeder Primfaktor von \(m \mid a-1\)</li>
+                    <li class="li-num">\(4 \mid m \implies 4 \mid a-1 \)
+                        <ul>
+                            <li class="li-arrow">Periodenlänge \( = m \quad \) (Satz von Knuth)</li>
+                        </ul>
+                    </li>
+                </ol>
+            </li>
+        </ul>
+
+        <style>
+            .bcell {
+                border: 1px solid black;
+                padding: 0.25em;
+                text-align: right;
+            }
+
+            .bcell-l {
+                border: 1px solid black;
+                padding: 0.25em;
+                text-align: left;
+            }
+        </style>
+
+        <table style="border: 1px solid black; border-collapse: collapse; margin-top: 1em; font-size: 80%">
+            <tr style="background-image: linear-gradient(to bottom, #c9521b, #a10031); color: white">
+                <th class="bcell"></th>
+                <th class="bcell">Mod. \(m\)</th>
+                <th class="bcell">Faktor \(a\)</th>
+                <th class="bcell">Summand \(b\)</th>
+                <th class="bcell">Ausgabebits</th>
+            </tr>
+            <tr>
+                <th class="bcell-l" style="font-family: monospace">RANDU</th>
+                <td class="bcell">2<sup>31</sup></td>
+                <td class="bcell">65539</td>
+                <td class="bcell">0</td>
+                <td class="bcell" style="font-family: monospace">*</td>
+            </tr>
+            <tr>
+                <th class="bcell-l" style="font-family: monospace">ANSI C, glibc</th>
+                <td class="bcell">2<sup>31</sup></td>
+                <td class="bcell">1103515245</td>
+                <td class="bcell">12345</td>
+                <td class="bcell" style="font-family: monospace">*</td>
+            </tr>
+            <tr>
+                <th class="bcell-l" style="font-family: monospace">Turbo Pascal</th>
+                <td class="bcell">2<sup>32</sup></td>
+                <td class="bcell">134775813</td>
+                <td class="bcell">1</td>
+                <td class="bcell" style="font-family: monospace">*</td>
+            </tr>
+            <tr>
+                <th class="bcell-l" style="font-family: monospace">Random.java</th>
+                <td class="bcell">2<sup>48</sup></td>
+                <td class="bcell">25214903917</td>
+                <td class="bcell">11</td>
+                <td class="bcell" style="font-family: monospace">47..16</td>
+            </tr>
+            <tr>
+                <th class="bcell-l" style="font-family: monospace">
+                    MMIX<span style="font-weight: normal; font-size: 12pt"> (D. Knuth)</span>
+                </th>
+                <td class="bcell">2<sup>64</sup></td>
+                <td class="bcell">6364136223846793005</td>
+                <td class="bcell">1442695040888963407</td>
+                <td class="bcell" style="font-family: monospace">*</td>
+            </tr>
+        </table>
+    </div>
 </section>
 
+<section>
+    <h5 id="heading-lcg-lsb" data-type="slide-header">3.7 Lineare Kongruenzgeneratoren: <br>LSB-Analyse</h5>
+    <div style="font-size: 20pt">
+        <table style="margin-left: 1em;">
+            <tr>
+                <td>
+                    <canvas id="canvas-lcg-lsb" width="31" height="31"
+                            class="centered"
+                            style="border: 1px solid #000000; image-rendering: pixelated; width: 400px; height: 400px;">
+
+                    </canvas>
+                </td>
+
+                <td style="vertical-align: top; ">
+                    <ul>
+                        <li class="li-square-hollow">gerade</li>
+                        <li class="li-square">ungerade</li>
+                    </ul>
+                    <p style="margin-left: 1em">
+                        \( \begin{align}
+                        m &= 2^{64} \\
+                        a &= 6364136223846793005 \\
+                        b &= 1442695040888963407 \\
+                        X_0 &= 0
+                        \end{align} \)
+                    </p>
+                    <p style="margin-left: 1em">
+                        \(2 \mid X_i \iff 2 \nmid X_{i+1} \)
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <ul>
+            <li>Multiplikation analog zu RANDU</li>
+            <li>Addition mit ungeradem Wert
+                <ul>
+                    <li class="li-arrow">niederwertigstes Bit ändert sich immer
+                        <ul>
+                            <li class="li-arrow">Schachbrettmuster entsteht</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        {
+            let canvas = document.getElementById("canvas-lcg-lsb");
+            let context = canvas.getContext("2d");
+            const PIX_BUFFER = context.createImageData(1, 1); // only do this once per page
+            let d = PIX_BUFFER.data;                        // only do this once per page
+            d[0] = 0;
+            d[1] = 0;
+            d[2] = 0;
+            d[3] = 255;
+
+            const WIDTH = canvas.width;
+            const HEIGHT = canvas.height;
+
+            context.fillStyle = DIAGRAM_FILL_STYLE;
+
+            const m = 0b1111111111111111111111111111111111111111111111111111111111111111n; // 2^64 - 1
+            const a = 6364136223846793005n;
+            const b = 1442695040888963407n;
+
+            function lcg(x) {
+                return (a * x + b) & m;
+            }
+
+            for (let y = 0, val = BigInt(0); y < HEIGHT; y++) {
+                for (let x = 0; x < WIDTH; x++, val = lcg(val)) {
+                    if ((val & 1n) === 1n)
+                        context.putImageData(PIX_BUFFER, x, y);
+                    //val = middleSquare4(val);
+                }
+            }
+        }
+    </script>
+</section>
 
 <section>
     <h2 id="heading-modern" data-type="slide-header">4. Moderne Verfahren</h2>
@@ -847,12 +1026,25 @@
 </section>
 
 <section>
-    <h2 id="heading-quellen" data-type="slide-header">6. Quellenverzeichnis</h2>
-    <sup>[1]</sup> <a
-        href="https://web.archive.org/web/20190105083840/http://tasvideos.org/GameResources/GBx/Pokemon.html">
-    http://tasvideos.org/GameResources/GBx/Pokemon.html
-</a> (2010-08-30)
+    <div style="margin-left: 1em">
 
+
+        <h2 id="heading-quellen" data-type="slide-header">6. Quellenverzeichnis</h2>
+
+        <sup>[1]</sup> FractalFusion - <a
+            href="https://web.archive.org/web/20190105083840/http://tasvideos.org/GameResources/GBx/Pokemon.html">
+        http://tasvideos.org/GameResources/GBx/Pokemon.html
+    </a> (2010-08-30)<br>
+
+        <sup>[2]</sup> Compaq - <a
+            href="http://h30266.www3.hpe.com/odl/unix/progtool/cf95au56/lrm0315.htm#randu_intrin">
+        Compaq Fortran Language Reference Manual
+    </a> (2019-05-04)<br>
+
+        <sup>[3]</sup> Peter Young - <a href="http://physics.ucsc.edu/~peter/115/randu.pdf">
+        Randu: a bad random number generator
+    </a><br>
+    </div>
     <h4 id="heading-bildqullen" data-type="slide-header">6.1. Bildquellen, Visualisierung usw.</h4>
 </section>
 
