@@ -4,6 +4,8 @@
     <title></title>
     <meta content="">
 
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+
     <style>
         /*noinspection CssInvalidMediaFeature*/
         @media screen and (prefers-reduced-motion: reduce) {
@@ -155,7 +157,7 @@
             margin: 0 20px;
             padding-left: 10px;
 
-            font-family: monospace;
+            font-family: 'Noto Sans Mono', monospace;
             font-size: 75%;
             text-align: right;
 
@@ -396,7 +398,7 @@
                 <tr>
                     <td>\(X_i\)</td>
                     <td>
-                        <input id="in" style="font-family: monospace" min="0" max="9999" type="number"
+                        <input id="in" style="font-family: 'Noto Sans Mono', monospace" min="0" max="9999" type="number"
                                oninput="onMiddleSquareInput(MS_IN, MS_OUT, MS_SQR)"/>
                     </td>
 
@@ -646,7 +648,8 @@
                 <tr>
                     <td>\(X_i\):</td>
                     <td>
-                        <input id="randu-in" style="font-family: monospace" min="0" max="2147483648" type="number"
+                        <input id="randu-in" style="font-family: 'Noto Sans Mono', monospace" min="0" max="2147483648"
+                               type="number"
                                oninput="onRanduInput(RANDU_IN, RANDU_OUT)"/>
                     </td>
 
@@ -885,41 +888,41 @@
                 <th class="bcell">Ausgabebits</th>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: monospace">RANDU</th>
+                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">RANDU</th>
                 <td class="bcell">2<sup>31</sup></td>
                 <td class="bcell">65539</td>
                 <td class="bcell">0</td>
-                <td class="bcell" style="font-family: monospace">*</td>
+                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: monospace">ANSI C, glibc</th>
+                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">ANSI C, glibc</th>
                 <td class="bcell">2<sup>31</sup></td>
                 <td class="bcell">1103515245</td>
                 <td class="bcell">12345</td>
-                <td class="bcell" style="font-family: monospace">*</td>
+                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: monospace">Turbo Pascal</th>
+                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">Turbo Pascal</th>
                 <td class="bcell">2<sup>32</sup></td>
                 <td class="bcell">134775813</td>
                 <td class="bcell">1</td>
-                <td class="bcell" style="font-family: monospace">*</td>
+                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: monospace">Random.java</th>
+                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">Random.java</th>
                 <td class="bcell">2<sup>48</sup></td>
                 <td class="bcell">25214903917</td>
                 <td class="bcell">11</td>
-                <td class="bcell" style="font-family: monospace">47..16</td>
+                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">47..16</td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: monospace">
+                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">
                     MMIX<span style="font-weight: normal; font-size: 12pt"> (D. Knuth)</span>
                 </th>
                 <td class="bcell">2<sup>64</sup></td>
                 <td class="bcell">6364136223846793005</td>
                 <td class="bcell">1442695040888963407</td>
-                <td class="bcell" style="font-family: monospace">*</td>
+                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
             </tr>
         </table>
     </div>
