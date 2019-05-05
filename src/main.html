@@ -28,6 +28,23 @@
             font-size: 18pt;
         }
 
+        a {
+            text-decoration: none;
+        }
+
+        a:link {
+            color: #1a5c7a;
+        }
+
+        a:visited {
+            color: #1a5c7a;
+        }
+
+        a:hover {
+            color: #1a5c7a;
+            text-decoration: underline;
+        }
+
         ol {
             counter-reset: item;
             padding-left: 1em;
@@ -55,9 +72,9 @@
             content: "\FFED";
         }
 
-        h1 {
+        /* h1 {
             text-decoration: underline
-        }
+        } */
 
         section {
             max-height: 720px;
@@ -87,6 +104,11 @@
 
         video {
             image-rendering: pixelated;
+        }
+
+        .centered {
+            display: block;
+            margin: 0 auto;
         }
 
         .li-arrow:before {
@@ -127,6 +149,20 @@
         .li2 {
             padding-top: 2px;
             padding-bottom: 2px;
+        }
+
+        .mono {
+            font-family: "Noto Sans Mono", monospace;
+        }
+
+        .red-gradient {
+            background-image: linear-gradient(to bottom, #c9521b, #a10031);
+            color: white;
+        }
+
+        .blu-gradient {
+            background-image: linear-gradient(to bottom, #1a5c7a, #002557);
+            color: white;
         }
 
         .slide-header-container {
@@ -174,11 +210,6 @@
             margin: 0 20px;
         }
 
-        .centered {
-            display: block;
-            margin: 0 auto;
-        }
-
         .MathJax:focus, .mjx-chtml:focus, .MathJax_SVG:focus {
             outline: 0 solid gray;
         }
@@ -200,6 +231,21 @@
 
 <section style="margin-top: 0">
     <h1 id="heading-top" data-type="slide-header">Pseudozufallsfolgengeneratoren</h1>
+
+    <style>
+        .no-margin {
+            margin: 0;
+        }
+    </style>
+
+    <div class="blu-gradient"
+         style=" text-align: center; margin-top: 4em;  height: fit-content; padding: 3em 0 3em;
+         font-family: 'Noto Sans', sans-serif;">
+        <h1 class="no-margin" style=" font-weight: 900; font-size: 200%">Pseudozufallsfolgengeneratoren</h1>
+        <h4 class="no-margin" style="margin: 0.5em 0 2em">Proseminar Sicherheit in Computersystemen,<br>TU-Dresden</h4>
+        <p class="no-margin" style="font-size: 150%">Jan Schultke</p>
+        <p class="no-margin" style="font-size: 100%"><span class="mono">2019-05-07</span></p>
+    </div>
 </section>
 
 <section>
@@ -317,15 +363,18 @@
         </ul>
 
         <div style="margin-left: 1em">
-            <h4 style="margin-bottom: 0.5em">Folge</h4>
-            \( (X_i) = (X_0, X_1, X_2, \ldots) \)
-
-            <h4 style="margin: 0.5em 0">Pseudozufallsfolgengenerator (abgek. Zufallsgenerator)</h4>
-            <ul style="margin-top: 0;">
-                <li>deterministischer Algorithmus</li>
-                <li>erzeugt Elemente der Folge</li>
-                <li>Elemente sind zufallsverteilt</li>
-            </ul>
+            <div data-reveal="1">
+                <h4 style="margin-bottom: 0.5em">Folge</h4>
+                \( (X_i) = (X_0, X_1, X_2, \ldots) \)
+            </div>
+            <div data-reveal="2">
+                <h4 style="margin: 0.5em 0">Pseudozufallsfolgengenerator (abgek. Zufallsgenerator)</h4>
+                <ul style="margin-top: 0;">
+                    <li>deterministischer Algorithmus</li>
+                    <li>erzeugt Elemente der Folge</li>
+                    <li>Elemente sind zufallsverteilt</li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -436,13 +485,6 @@
 
 </section>
 
-
-<section>
-    <h5 id="heading-ms-bewertungskriterien" data-type="slide-header">
-        2.2 Bewertungskriterien von PZG anhand der Mittquadratmethode
-    </h5>
-</section>
-
 <section>
     <h4 id="heading-ms-verteilung" data-type="slide-header">2.3.1 Mittquadratmethode-Verteilung</h4>
     <img class="centered" src="img/ms-dist-graph.svg" alt="Middle-Square Distribution">
@@ -540,7 +582,7 @@
             </tr>
         </table>
 
-        <ul>
+        <ul data-reveal="1">
             <li>Modulodivision durch 10<sup>5</sup>
                 <ul>
                     <li class="li-arrow">niederwertigstes Bit ändert sich manchmal</li>
@@ -600,28 +642,34 @@
     <!-- h3 id="heading-kg-funktionsweise">3.1. Funktionsweise</h3-->
 
     <div class="centered" style="width: fit-content; margin-left: 1em">
-        <h4>Multiplikativer Kongruenzgenerator:</h4>
-        \( X_{i+1} = (a \cdot X_{i}) \bmod m, \quad\quad\quad\quad a \in \mathbb{Z}_m \)
-        <!--p style="text-align: center">
-            Sonderfall für \(b = 0\)
-        </p-->
+        <div>
+            <h4>Multiplikativer Kongruenzgenerator:</h4>
+            \( X_{i+1} = (a \cdot X_{i}) \bmod m, \quad\quad\quad\quad a \in \mathbb{Z}_m \)
+            <!--p style="text-align: center">
+                Sonderfall für \(b = 0\)
+            </p-->
+        </div>
 
-        <h4>Linearer Kongruenzgenerator:</h4>
-        \( X_{i+1} = (a \cdot X_{i} + b) \bmod m, \quad\quad a, b \in \mathbb{Z}_m \)
-        <!--p style="text-align: center">
-            Sonderfall für \(a_{k \gt 0} = 0\). Hierbei \(a := a_{0}\).
-        </p-->
+        <div data-reveal="1">
+            <h4>Linearer Kongruenzgenerator:</h4>
+            \( X_{i+1} = (a \cdot X_{i} + b) \bmod m, \quad\quad a, b \in \mathbb{Z}_m \)
+            <!--p style="text-align: center">
+                Sonderfall für \(a_{k \gt 0} = 0\). Hierbei \(a := a_{0}\).
+            </p-->
+        </div>
 
-        <h4>Allgemeiner Kongruenzgenerator:</h4>
-        \(
-        X_{i+1} = \Biggl(\Bigl( \displaystyle\sum_{k=0}^n a_k X_{i-k}\Bigr) + b\Biggr) \bmod m, \quad
-        a_k, b \in \mathbb{Z}_m
-        \)
+        <div data-reveal="2">
+            <h4>Allgemeiner Kongruenzgenerator:</h4>
+            \(
+            X_{i+1} = \Biggl(\Bigl( \displaystyle\sum_{k=0}^n a_k X_{i-k}\Bigr) + b\Biggr) \bmod m, \quad
+            a_k, b \in \mathbb{Z}_m
+            \)
 
-        <ul>
-            <li>multipliziere mehrere vorherige Werte \(X_{i-k}\) mit \( a_k \) und summiere</li>
-            <li>z.B. Fibonacci-Generator: \(a_0 = a_1 = 1,\, b = 0,\, m \in \{0, 1, 2, 3, 5, \ldots\}\)</li>
-        </ul>
+            <ul>
+                <li>multipliziere mehrere vorherige Werte \(X_{i-k}\) mit \( a_k \) und summiere</li>
+                <li>z.B. Fibonacci-Generator: \(a_0 = a_1 = 1,\, b = 0,\, m \in \{0, 1, 2, 3, 5, \ldots\}\)</li>
+            </ul>
+        </div>
 
     </div>
 </section>
@@ -636,14 +684,15 @@
             <li>"<i>[RANDU] should never have been used.</i>" - D.E. Knuth</li>
         </ul>
 
-        \( \begin{aligned}
-        X_{i+1} &= (X_i \cdot 65539) \bmod 2^{31} \\
-        &= (X_i \cdot (2^{16}+3) ) \bmod 2^{31} \\
-        &= (X_i + X_i + X_i + (X_i \ll 16) ) \mathrel{\&} (2^{31}-1)
-        \end{aligned} \)
+        \( X_{i+1} = (X_i \cdot 65539) \bmod 2^{31} \)
+        <div data-reveal="1">
+            \( \begin{aligned}
+            \quad\quad &= (X_i \cdot (2^{16}+3) ) \bmod 2^{31} \\
+            &= (X_i + X_i + X_i + (X_i \ll 16) ) \mathrel{\&} (2^{31}-1)
+            \end{aligned} \)
+        </div>
 
-
-        <div>
+        <div data-reveal="2">
             <table style="margin-top: 2em">
                 <tr>
                     <td>\(X_i\):</td>
@@ -685,7 +734,7 @@
     <h2 id="heading-randu-verteilung" data-type="slide-header">3.3 RANDU: Verteilung</h2>
     <img class="centered" src="img/randu-dist-graph.svg" alt="RANDU-Verteilung"
          style="width: 720px; height: auto">
-    <div class="centered" style="width: fit-content">
+    <div class="centered" style="width: fit-content" data-reveal="1">
         \(
         \begin{align}
         65539x &\equiv a & \pmod{2^{31}} \\
@@ -754,7 +803,7 @@
             </tr>
         </table>
 
-        <ul>
+        <ul data-reveal="1">
             <li>Multiplikation mit ungerader Zahl</li>
             <li>Modulodivision 2<sup>31</sup> ändert nie niederwertigstes Bit
                 <ul>
@@ -799,7 +848,7 @@
 
 <section>
     <h2 id="heading-randu-2d" data-type="slide-header">3.4 RANDU: 2D</h2>
-    <img class="centered" src="img/randu-2d-graph.svg" alt="RANDU Graph">
+    <img class="centered" src="img/randu-2d-graph.svg" alt="RANDU Graph (5000 Punkte gleichen Abstands)">
     <!--canvas id="canvas-randu-2d" width="730" height="550" style="border:1px solid #000000;"></canvas>
     <script>
         {
@@ -839,7 +888,7 @@
     <h2 id="heading-ms-3d" data-type="slide-header">3.5 RANDU 3D</h2>
 
     <div class="centered" style="width: fit-content">
-        <embed src="middle-square-vis.html"
+        <embed src="graph-3d.html"
                style="border: 2px black;"
                width="800" height="600">
     </div>
@@ -850,7 +899,7 @@
     <div style="font-size: 20pt; margin-left: 1em">
         \( X_{i+1} = (a \cdot X_{i} + b) \bmod m, \quad\quad a, b \in \mathbb{Z}_m \)
 
-        <ul>
+        <ul data-reveal="1">
             <li>am weitesten verbreitete Zufallsgeneratoren</li>
             <li class="li-fat-plus">Periodenlänge bekannt und sehr groß
                 <ol>
@@ -879,8 +928,9 @@
             }
         </style>
 
-        <table style="border: 1px solid black; border-collapse: collapse; margin-top: 1em; font-size: 80%">
-            <tr style="background-image: linear-gradient(to bottom, #c9521b, #a10031); color: white">
+        <table data-reveal="2"
+               style="border: 1px solid black; border-collapse: collapse; margin-top: 1em; font-size: 80%">
+            <tr class="red-gradient">
                 <th class="bcell"></th>
                 <th class="bcell">Mod. \(m\)</th>
                 <th class="bcell">Faktor \(a\)</th>
@@ -888,41 +938,42 @@
                 <th class="bcell">Ausgabebits</th>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">RANDU</th>
+                <th class="bcell-l"><span class="mono">RANDU</span></th>
                 <td class="bcell">2<sup>31</sup></td>
                 <td class="bcell">65539</td>
                 <td class="bcell">0</td>
-                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
+                <td class="bcell"><span class="mono">*</span></td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">ANSI C, glibc</th>
+                <th class="bcell-l"><span class="mono">ANSI C, glibc</span></th>
                 <td class="bcell">2<sup>31</sup></td>
                 <td class="bcell">1103515245</td>
                 <td class="bcell">12345</td>
-                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
+                <td class="bcell"><span class="mono">*</span></td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">Turbo Pascal</th>
+                <th class="bcell-l"><span class="mono">Turbo Pascal</span></th>
                 <td class="bcell">2<sup>32</sup></td>
                 <td class="bcell">134775813</td>
                 <td class="bcell">1</td>
-                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
+                <td class="bcell"><span class="mono">*</span></td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">Random.java</th>
+                <th class="bcell-l"><span class="mono">Random.java</span></th>
                 <td class="bcell">2<sup>48</sup></td>
                 <td class="bcell">25214903917</td>
                 <td class="bcell">11</td>
-                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">47..16</td>
+                <td class="bcell"><span class="mono">47..16</span></td>
             </tr>
             <tr>
-                <th class="bcell-l" style="font-family: 'Noto Sans Mono', monospace">
-                    MMIX<span style="font-weight: normal; font-size: 12pt"> (D. Knuth)</span>
+                <th class="bcell-l">
+                    <span class="mono">MMIX</span>
+                    <span style="font-weight: normal; font-size: 14pt"> (D. Knuth)</span>
                 </th>
                 <td class="bcell">2<sup>64</sup></td>
                 <td class="bcell">6364136223846793005</td>
                 <td class="bcell">1442695040888963407</td>
-                <td class="bcell" style="font-family: 'Noto Sans Mono', monospace">*</td>
+                <td class="bcell"><span class="mono">*</span></td>
             </tr>
         </table>
     </div>
@@ -961,7 +1012,7 @@
             </tr>
         </table>
 
-        <ul>
+        <ul data-reveal="1">
             <li>Multiplikation analog zu RANDU</li>
             <li>Addition mit ungeradem Wert
                 <ul>
@@ -1004,6 +1055,91 @@
                     if ((val & 1n) === 1n)
                         context.putImageData(PIX_BUFFER, x, y);
                     //val = middleSquare4(val);
+                }
+            }
+        }
+    </script>
+</section>
+
+<section>
+    <h5 id="heading-lcg-2lsb" data-type="slide-header">3.7 Lineare Kongruenzgeneratoren: <br>N-LSB-Analyse</h5>
+    <div style="font-size: 16pt">
+        <table style="margin-left: 1em;">
+            <tr>
+                <td>
+                    <canvas id="canvas-lcg-2lsb" width="31" height="31"
+                            class="centered"
+                            style="border: 1px solid #000000; image-rendering: pixelated; width: 200px; height: 200px;">
+
+                    </canvas>
+                </td>
+
+                <td style="vertical-align: top; ">
+                    <p style="margin-left: 1em">
+                        \(
+                        m, a, b \text{ gleich} \\
+                        \begin{align}
+                        X_0 &= 0 \\
+                        B &= 11_2
+                        \end{align} \)
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="canvas-lcg-3lsb" width="31" height="31"
+                            class="centered"
+                            style="border: 1px solid #000000; image-rendering: pixelated; width: 200px; height: 200px;">
+
+                    </canvas>
+                </td>
+            </tr>
+        </table>
+
+        <ul data-reveal="1">
+            <li>Multiplikation analog zu RANDU</li>
+            <li>Addition mit ungeradem Wert
+                <ul>
+                    <li class="li-arrow">niederwertigstes Bit ändert sich immer
+                        <ul>
+                            <li class="li-arrow">Schachbrettmuster entsteht</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        for (let i = 2; i < 4; i++) {
+            let canvas = document.getElementById("canvas-lcg-" + i.toString() + "lsb");
+            let context = canvas.getContext("2d");
+            const PIX_BUFFER = context.createImageData(1, 1); // only do this once per page
+            let d = PIX_BUFFER.data;                        // only do this once per page
+            d[0] = 0;
+            d[1] = 0;
+            d[2] = 0;
+            d[3] = 255;
+
+            const WIDTH = canvas.width;
+            const HEIGHT = canvas.height;
+
+            context.fillStyle = DIAGRAM_FILL_STYLE;
+
+            const m = 0b1111111111111111111111111111111111111111111111111111111111111111n; // 2^64 - 1
+            const a = 6364136223846793005n;
+            const b = 1442695040888963407n;
+
+            function lcg(x) {
+                return (a * x + b) & m;
+            }
+
+            for (let y = 0, val = 0n; y < HEIGHT; y++) {
+                for (let x = 0; x < WIDTH; x++, val = lcg(val)) {
+                    if ((val & 0b10n) !== 0n)
+                        context.putImageData(PIX_BUFFER, x++, y);
+                    if ((val & 0b01n) !== 0n)
+                        context.putImageData(PIX_BUFFER, x, y);
                 }
             }
         }
@@ -1067,6 +1203,10 @@
 
 <script>
     let SLIDE_COUNT = 0;
+    let timerStart = Date.now();
+    let reveals = {};
+    let currentReveals = null;
+
     { // HTML preprocess
         const SLIDE_HEADER_CONTAINER = document.getElementById("slide-header-container");
         const SLIDE_HEADER_RIGHT = document.getElementById("slide-header-right");
@@ -1078,48 +1218,66 @@
 
             SLIDE_COUNT++;
 
-            let child = slide.querySelector("[data-type=slide-header]");
-            if (child === null) continue;
-            child.className = "slide-header";
+            headerPreProcess: {
+                let child = slide.querySelector("[data-type=slide-header]");
+                if (child === null) break headerPreProcess;
+                child.className = "slide-header";
 
-            let containerInstance = SLIDE_HEADER_CONTAINER.cloneNode(true);
-            let rightInstance = SLIDE_HEADER_RIGHT.cloneNode(true);
+                let containerInstance = SLIDE_HEADER_CONTAINER.cloneNode(true);
+                let rightInstance = SLIDE_HEADER_RIGHT.cloneNode(true);
 
-            //slideHeaderInstance.setAttribute("hidden", "");
-            slide.prepend(containerInstance);
-            containerInstance.appendChild(child);
-            containerInstance.appendChild(rightInstance);
+                //slideHeaderInstance.setAttribute("hidden", "");
+                slide.prepend(containerInstance);
+                containerInstance.appendChild(child);
+                containerInstance.appendChild(rightInstance);
 
-            containerInstance.id = "slide-header-" + index;
-            rightInstance.id = "slide-header-right-" + index;
+                containerInstance.id = "slide-header-" + index;
+                rightInstance.id = "slide-header-right-" + index;
 
-            for (let element of slide.querySelectorAll("[data-type=slide-num]"))
-                element.append(index.toString().padStart(2, "0"));
+                for (let element of slide.querySelectorAll("[data-type=slide-num]"))
+                    element.append(index.toString().padStart(2, "0"));
+            }
+
+            // noinspection UnnecessaryLabelJS
+            revealEffects: {
+                reveals[index] = [];
+                for (let element of slide.querySelectorAll('[data-reveal]')) {
+                    reveals[index].push(element);
+                    element.style.visibility = "hidden";
+                }
+                if (reveals[index].length) {
+                    reveals[index].sort(function (a, b) {
+                        let indexA = parseInt(a.getAttribute('data-reveal'));
+                        let indexB = parseInt(b.getAttribute('data-reveal'));
+                        return indexA - indexB;
+                    });
+                }
+            }
         }
         SLIDE_HEADER_CONTAINER.setAttribute("hidden", "hidden");
 
         if (HIDE_COMMENTS)
             for (let element of document.querySelectorAll("[data-type=comment]"))
                 element.remove();
-
-        let timers = document.querySelectorAll("[data-type=timer]");
-        console.log(timers);
-
-        let startMillis = Date.now();
-
-        function updateTimers() {
-            let date = new Date(Date.now() - startMillis);
-            for (let t of timers) {
-                while (t.firstChild)
-                    t.removeChild(t.firstChild);
-                t.append(date.getUTCMinutes().toString().padStart(2, "0") + ":" +
-                    date.getUTCSeconds().toString().padStart(2, "0"));
-            }
-        }
-
-        updateTimers();
-        setInterval(updateTimers, 1000);
     }
+
+    let timers = document.querySelectorAll("[data-type=timer]");
+    //console.log(timers);
+
+    timerStart = Date.now();
+
+    function updateTimers() {
+        let date = new Date(Date.now() - timerStart);
+        for (let t of timers) {
+            while (t.firstChild)
+                t.removeChild(t.firstChild);
+            t.append(date.getUTCMinutes().toString().padStart(2, "0") + ":" +
+                date.getUTCSeconds().toString().padStart(2, "0"));
+        }
+    }
+
+    updateTimers();
+    setInterval(updateTimers, 1000);
 
     // make constants available to buttons and other elements
     const MS_IN = document.getElementById("in");
@@ -1160,6 +1318,8 @@
         if (slide != null)
             location.hash = "#" + id;
 
+        currentReveals = reveals[num];
+        //console.log(currentReveals);
         for (let vid of slide.querySelectorAll("[data-type=slide-video]"))
             vid.play();
     }
@@ -1169,11 +1329,28 @@
         jumpToSlide(Math.max(0, Math.min(SLIDE_COUNT - 1, num + count)));
     }
 
+    function navigate(backwards = false) {
+        if (backwards)
+            jumpSlidesRelative(-1);
+        else if (currentReveals.length !== 0) {
+            let revealed = currentReveals.shift();
+            revealed.style.visibility = "visible";
+        } else {
+            jumpSlidesRelative(1);
+        }
+    }
+
     jumpSlidesRelative(0);
 
     function onKeyDown(event) {
+        // noinspection CommaExpressionJS
         switch (event.key) {
             case "ArrowUp":
+                event.preventDefault();
+                navigate(true);
+                break;
+
+            case "ArrowLeft":
                 event.preventDefault();
                 jumpSlidesRelative(-1);
                 break;
@@ -1181,7 +1358,38 @@
             case " ":
             case "ArrowDown":
                 event.preventDefault();
+                navigate(false);
+                break;
+
+            case "ArrowRight":
+                event.preventDefault();
                 jumpSlidesRelative(1);
+                break;
+
+            case "0":
+            case "Home":
+                event.preventDefault();
+                jumpToSlide(0);
+                break;
+
+            case "9":
+            case "End":
+                event.preventDefault();
+                jumpToSlide(SLIDE_COUNT - 1);
+                break;
+
+            case "r": // reset timer
+                event.preventDefault();
+                timerStart = Date.now();
+                updateTimers();
+                break;
+
+            case "d": // debug
+                event.preventDefault();
+                for (let revealable of document.querySelectorAll("[data-reveal]")) {
+                    revealable.style.opacity = revealable.style.opacity !== "0.33" ? "0.33" : "1";
+                    // console.log(revealable);
+                }
                 break;
         }
     }
