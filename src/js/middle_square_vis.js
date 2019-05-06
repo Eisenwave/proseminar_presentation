@@ -2,7 +2,7 @@ let container, renderer, scene, camera, controls, hoverElement;
 
 function init() {
     // Set the scene size.
-    const WIDTH = 800;
+    const WIDTH = 960;
     const HEIGHT = 600;
 
     // Set some camera attributes.
@@ -80,7 +80,8 @@ function animate() {
 }
 
 function setup() {
-    scene.background = new THREE.Color(0.95, 0.95, 0.95);
+    //scene.background = new THREE.Color(0.95, 0.95, 0.95);
+    scene.background = new THREE.Color(1, 1, 1);
 
     camera.position.x = 0 - 0.5;
     camera.position.y = 1 + 0.5;
