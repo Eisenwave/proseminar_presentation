@@ -1,0 +1,218 @@
+/*noinspection CssInvalidMediaFeature*/
+@media screen and (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    background: black;
+    overflow: hidden;
+
+    font-family: "Noto Serif", sans-serif;
+    font-size: 18pt;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: #1a5c7a;
+}
+
+a:visited {
+    color: #1a5c7a;
+}
+
+a:hover {
+    color: #1a5c7a;
+    text-decoration: underline;
+}
+
+ol {
+    counter-reset: item;
+    padding-left: 1em;
+}
+
+ul {
+    padding-left: 1em;
+}
+
+li {
+    display: block;
+    margin: 0.25em 0;
+}
+
+li:before {
+    margin-right: 1em;
+    font-family: "Noto Sans", sans-serif;
+}
+
+ol li:before {
+    content: counters(item, ".") ".";
+    counter-increment: item;
+    font-family: "Noto Serif", sans-serif;
+}
+
+ul li:before {
+    content: "\25FE";
+
+    /*content: url(img/unicode/ffed.png);
+    content: '';
+    background-image: url(img/unicode/ffed.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 1em;
+    width: 1em;
+    display: inline-block;*/
+}
+
+/* h1 {
+    text-decoration: underline
+} */
+
+section {
+    max-height: 720px;
+    min-height: 720px;
+    border-bottom: #CC0000;
+    border-bottom-style: dashed;
+    margin-bottom: 125%;
+    margin-top: 125%;
+    background: white;
+}
+
+table {
+    font-size: inherit;
+}
+
+input {
+    font-size: inherit;
+}
+
+textarea {
+    font-size: inherit;
+}
+
+button {
+    font-size: inherit;
+}
+
+video {
+    image-rendering: pixelated;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.li-arrow:before {
+    content: "\21D2";
+}
+
+.li-square:before {
+    content: "\25A0"
+}
+
+.li-square-hollow:before {
+    content: "\25A1"
+}
+
+.li-fat-plus:before {
+    content: "\FF0B";
+    /*content: "+";*/
+    font-weight: bold;
+}
+
+.li-fat-minus:before {
+    content: "\FF0D";
+    font-weight: bold;
+}
+
+.li-num:before {
+    content: counters(item, ".") ".";
+    counter-increment: item;
+    font-weight: bold;
+}
+
+.li1 {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.li2 {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.mono {
+    font-family: "Noto Sans Mono", monospace;
+}
+
+.red-gradient {
+    background-image: linear-gradient(to bottom, #c9521b, #a10031);
+    color: white;
+}
+
+.blu-gradient {
+    background-image: linear-gradient(to bottom, #1a5c7a, #002557);
+    color: white;
+}
+
+.slide-header-container {
+    background-image: linear-gradient(to bottom, #1a5c7a, #002557);
+    box-shadow: 0 4px 4px 0 #666;
+    /*background: #002557;*/
+    min-height: 48px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.slide-header {
+    font-family: "Noto Sans", sans-serif;
+    margin: 0 0 0 0;
+    display: inline-block;
+    color: white;
+    vertical-align: center;
+    max-width: 640px;
+    line-height: 125%;
+}
+
+.slide-header-right {
+    display: block;
+    float: right;
+    width: auto;
+    height: 45px;
+    color: white;
+    margin: 0 20px;
+    padding-left: 10px;
+
+    font-family: 'Noto Sans Mono', monospace;
+    font-weight: bold;
+    font-size: 75%;
+    text-align: right;
+
+    border-left: white;
+    border-left-style: dashed;
+    border-left-width: 3px;
+}
+
+.header-tu-logo {
+    float: left;
+    width: auto;
+    height: 40px;
+    color: white;
+    margin: 0 20px;
+}
+
+.MathJax:focus, .mjx-chtml:focus, .MathJax_SVG:focus {
+    outline: 0 solid gray;
+}
