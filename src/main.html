@@ -1000,24 +1000,69 @@
 </section>
 
 <section>
-    <h2 id="heading-modern" data-type="slide-header">4 Moderne Verfahren</h2>
+    <h5 id="heading-modern" data-type="slide-header">4.1 Moderne Verfahren:<br>Zuverlässige Zufallsgeneratoren</h5>
+    <ul style="font-size: 20pt">
+        <li>zuverlässiger Generator wird benötigt</li>
+        <li>"zuverlässig": besteht <i>Big Crush</i> der TestU01-Bibliothek (160 Tests)
+            <ul style="margin-top: 2em; font-size: 22pt">
+                <li class="li-arrow" data-reveal="1">Zufallsgenerator entwickeln
+                    <ul>
+                        <li class="li-arrow">George Marsaglia - KISS "Keep it Simple Stupid" (1998)</li>
+                    </ul>
+                </li>
+                <li class="li-arrow" style="margin-top: 2em" data-reveal="2">Hashfunktion verwenden
+                    <ul>
+                        <li class="li-arrow">NIST, NSA - SHA-1 (1993)</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
 </section>
 
 
 <section>
-    <h3 id="heading-zuverlaessig" data-type="slide-header">4.1 Zuverlässige Pseudozufallsgeneratoren</h3>
+    <h4 id="heading-krypto" data-type="slide-header">4.2 Kryptographisch sichere Zufallsgeneratoren</h4>
+    <ul style="font-size: 22pt">
+        <li>zuverlässiger heißt nicht kryptographisch sicher</li>
+        <li>Bitstream \( \nRightarrow \) innerer Zustand</li>
+    </ul>
+    <ul style="margin-top: 2em; font-size: 22pt">
+        <li data-reveal="1">Beispiel: AES (1998)
+            <ul>
+                <li class="li-arrow">128-Bit Eingabe/Ausgabe</li>
+                <li class="li-arrow">bis zu 14x schneller durch Hardwareinstruktionen</li>
+                <li class="li-arrow">gilt immer noch als sicher</li>
+            </ul>
+        </li>
+    </ul>
 </section>
 
-
-<section>
-    <h3 id="heading-krypto" data-type="slide-header">4.2 Kryptographisch sichere Zufallsgeneratoren</h3>
-</section>
-
-<section>
+<section style="margin-top: 0">
     <h2 id="heading-end" data-type="slide-header">5 Schluss</h2>
+
+    <style>
+        .no-margin {
+            margin: 0;
+        }
+    </style>
+
+    <div class="blu-gradient"
+         style=" text-align: center; margin-top: 4em;  height: fit-content; padding: 3em 0 3em;
+         font-family: 'Noto Sans', sans-serif;">
+        <h1 class="no-margin" style=" font-weight: 900; font-size: 200%; margin-bottom: 4em">
+            Danke für eure Aufmerksamkeit
+        </h1>
+        <p class="no-margin" style="font-size: 100%"><span class="mono">
+            <a href="https://github.com/Eisenwave/proseminar_presentation" style="color: white">
+                github.com/Eisenwave/proseminar_presentation
+            </a>
+        </span></p>
+    </div>
 </section>
 
-<section>
+<!--section>
     <div style="margin-left: 1em">
 
 
@@ -1038,7 +1083,7 @@
     </a><br>
     </div>
     <h4 id="heading-bildqullen" data-type="slide-header">5.2 Bildquellen, Visualisierung usw.</h4>
-</section>
+</section-->
 
 <!--section>
     <h4 id="heading-literaturverzeichnis" data-type="slide-header">5.3 Literaturverzeichnis</h4>
@@ -1053,7 +1098,7 @@
 </header>
 
 <div id="slide-header-right" class="slide-header-right">
-    Slide
+    Folie
     <span data-type="slide-num"></span><br>
     <span data-type="timer"></span>
 </div>
