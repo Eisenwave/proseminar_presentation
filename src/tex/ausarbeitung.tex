@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
 \usepackage[hidelinks]{hyperref}
+\usepackage[ngerman]{babel}
 
 %\usepackage{hyperref}
 %\usepackage{titling}
@@ -14,26 +15,43 @@
 %}
 
 \title{\textbf{\LARGE Pseudozufallsfolgengeneratoren
-\\{\large Technische Universit\"at Dresden}
+\\{\Large Technische Universit\"at Dresden}
+\\\noindent\newline{\large Proseminar Sicherheit in Computersystemen}
+\\{\small Professur f\"ur Datenschutz und Datensicherheit}
 }}
 %\subtitle{Pseudozuffalsfolgengeneratoren}
 
 %\title{\LARGE Pseudozuffalsfolgengeneratoren}
-\author{\Large Jan Schultke}
-\date{\large2019-04-03}
+\author{\\ \Large Jan Schultke}
+\date{\large2019-06-06}
 
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{\nouppercase{\leftmark}}
-\lhead{Pseudozuffalsfolgengeneratoren}
+\lhead{Pseudozufallsfolgengeneratoren}
 %\rfoot{Page \thepage}
 \cfoot{\thepage}
 
 \setcounter{tocdepth}{3}
 %\renewcommand{\footrulewidth}{0.5pt}
 \renewcommand\refname{8 Literaturverzeichnis}
-
+\renewcommand{\contentsname}{Inhaltsverzeichnis}
 %\parskip = \baselineskip
+
+\let\oldquote'
+\newif\ifquoteopen
+\catcode`\'=\active
+\makeatletter
+\DeclareRobustCommand*{'}{%
+\@ifnextchar'{%
+\ifquoteopen
+\global\quoteopenfalse\grqq\expandafter\@gobble
+\else
+\global\quoteopentrue\glqq\expandafter\@gobble
+\fi
+}{\oldquote}%
+}
+\makeatother
 
 \begin{document}
 
@@ -43,27 +61,32 @@
     \clearpage
     \pagebreak
 
-    \pagenumbering{arabic}
-    \tableofcontents
-    \pagebreak
 
-    \section{Abstract}\label{sec:abstract}
+    \section*{Abstract}\label{sec:abstract}
     %\begin{abstract}
     Pseudozufallsfolgengeneratoren (PZFG) sind eine seit den 1940ern weit verbreitete Methode zur Generierung von
     Zufallsfolgen in Computersystemen.
     Nahezu jede Programmiersprache und auch einige Betriebssysteme (u.A. Unix) machen Gebrauch von dieser Technologie.
 
-    \noindent\newline Diese einf\"uhrende Arbeit vermittelt Grundlagen des Entwurfs von PZFGs und gew\"unchste Eigenschaften und
+    \noindent\newline Diese Arbeit vermittelt Grundlagen des Entwurfs von PZFG und gew\"unchste Eigenschaften und
     Funktionsweisen.
-    Visuelle sowie stochastische Bewertungskriterien von PZFGs werden am Beispiel von John von Neumanns
-    Mittelquadratmethode und dem seit 1960 eingesetzten RANDU-Algorithmus vorgestellt.
+    Visuelle sowie stochastische Bewertungskriterien von PZFG werden am Beispiel von John von Neumanns
+    Mittquadratmethode und dem seit 1960 eingesetzten RANDU-Algorithmus vorgestellt.
     Dies beinhalten unter anderem die Analyse von Werteverteilungen, Analyse der niederwertigsten Bitebene, Darstellung
     der Generatorfunktion in zwei und drei Dimensionen und die Erweiterung dieses Konzepts auf den Spektraltest.
 
-    \noindent\newline Ebenso beinhaltet diese Arbeit einen Ausblick in moderne Verfahren und kryptographisch sichere PZFGs.
+    \noindent\newline Ebenso beinhaltet diese Arbeit einen Ausblick in moderne Verfahren und kryptographisch sichere PZFG.
     Prim\"ar wird hier die Tauglichkeit von Hashfunktionen sowie von Blockchiffren als PZFG betrachtet.
     %\end{abstract}
+    \clearpage
     \pagebreak
+
+
+    \pagenumbering{arabic}
+    \tableofcontents
+    \pagebreak
+
+
 
     %\addcontentsline{toc}{subsection}{\numberline{\thesection.2} Some Subsection}
 
@@ -75,42 +98,44 @@
     Doch wie kann ein Computer eben diesen Zufall erzeugen, wenn er eine volkommen deterministische Maschine ist?
 
     \noindent\newline Ein erster Ansatz w\"are es diesen Zufall von Au{\ss}en in den Rechner einzuspeisen.
-    1940 entwickelte die RAND-Corporation eine spezielle Maschine die mithilfe eines Pulsgenerators Zufallswerte
-    erzeugt und ver\"offentlichte diese in \textit{"A Million Random Digits with 100,000 Normal Deviates"}.
-    Doch ob es sich um Lochkarten eines Prozessors aus den 1960ern oder um DDR4-Speicher eines 2019er Prozessors
-    handelt, das Einspeisen dieser Werte dauert immer noch l\"anger als einfache mathematische Operationen und
-    irgendwann gehen diese Werte auch zu neige.
+    1940 konstruierte die RAND-Corporation eine Maschine, welche mithilfe eines Pulsgenerators Zufallswerte
+    erzeugte und ver\"offentlichte die Ergebnisse in \textit{''A Million Random Digits with 100,000 Normal Deviates''}\cite{random_digits}.
+    Doch ob es sich bei der Quelle um Lochkarten eines Großrechners aus den 1960ern oder um DDR4-Speicher auf einer
+    hochmodernen Hauptplatine handelt:
+    Das Einspeisen von Zufall in den Rechner ist weit zeitintensiver als arithmetische Operationen und die verf\"ugbare
+    Entropie ist immer endlich.
 
-    \noindent\newline Auch kann jeder Rechner mit einer Instruktion zum Generieren echten Zufalls ausgestattet werden.
-    So besitzt der 1951er Ferranti Mark 1 eine von Alan Turing entwickelte Hardwareinstruktion, welche mithilfe
-    elektrischen Rauschens echte 20 Zufallsbits erzeugt.
-    Jedoch gehen durch solche Instruktionen viele klassiche Qualit\"aten eines deterministischen Algorithmus verloren
-    und die Implementierung erfordert zus\"atzliche Peripherieger\"ate.
+    \noindent\newline Alternativ kann jeder Prozessor mit einer Instruktion zum Generieren echten Zufalls ausgestattet
+    werden.
+    So besitzt der 1951er Ferranti Mark 1 eine von Alan Turing entwickelte Hardwareinstruktion\cite{ferranti_rng},
+    welche mithilfe elektrischen Rauschens 20 echte Zufallsbits erzeugt.
+    Jedoch gehen durch solche Instruktionen viele Qualit\"aten eines deterministischen Algorithmus verloren, wie zum
+    Beispiel die Reproduzierbarkeit einer Zufallsfolge.
 
-    \noindent\newline Eine L\"osung hierf\"ur sind Pseudozufallsfolgengeneratoren (PZFG).
-    Dabei werden scheinbar zuf\"allige Werte mithilfe von deterministischen Algorithmen erzeugt.
+    \noindent\newline Abhilfe f\"ur die Probleme der vorigen Ans\"atze schaffen Pseudozufallsfolgengene-ratoren (PZFG).
+    Dabei werden Folgen von zufallsverteilten Werten mithilfe von deter-ministischen Algorithmen erzeugt.
     Ob sie nun eingesetzt werden um einen Klartext mit Zufallsbits zu verschl\"usseln, eine Lanschaft prozedurell
-    zu generieren, KI in Spielen unvorhersehbar handeln zu lassen oder Funktionen eines Unit-Tests mit zuf\"allig
-    erzeugten Werten zu speisen, Zufallsgeneratoren sind in so ziemlich jedem Computersystem zu finden.
+    zu generieren, KI in Spielen unvorhersehbar handeln zu lassen oder Funktionen eines Unit-Tests mit
+    (pseudo)zuf\"alligen Werten zu speisen, Zufallsgeneratoren sind in nahezu jedem Computersystem zu finden.
 
     \noindent\newline Ein erster Ansatz hierf\"ur ist die 1949 erstmals von John von Neumann vorgestellte
-    Mittelquadratmethode.
-    Im Kapitel 4 wird diese ausgiebig betrachtet und diverse Bewertungskriterien f\"ur PZFGs werden vorgestellt.
-    Von der Effizenz eines Algorithmus bis zu diversen stochastischen Tests werden Bewertungskriterien sowohl formal
+    Mittquadratmethode\cite{middle_square}.
+    Im Kapitel 4 wird diese ausgiebig betrachtet und diverse Bewertungskriterien f\"ur PZFG werden vorgestellt.
+    Von der Effizenz eines Algo-rithmus bis zu diversen stochastischen Tests werden Bewertungskriterien sowohl formal
     als auch visuell pr\"asentiert.
-    In Kapitel 5 werden weiterhin Kongruenzgeneratoren betrachtet, welche bei weitem in historischen als auch modernen
-    Computersystemen am Meisten implementiert wurden.
-    Zu guter Letzt ist in Kapitel 6 ein Ausblick in moderne Verfahren zu finden, insbesondere der Einsatz von
-    Hashfunktionen und Blockchiffren.
+    In Kapitel 5 werden Kongruenzgeneratoren betrachtet;
+    ein historisch sehr weit verbreiteter Ansatz zur Pseudozufallsgenerierung.
+    In Kapitel 6 ein Ausblick in moderne Verfahren zu finden, insbesondere der Einsatz von
+    Hashfunktionen und Blockchiffren als PZFG.
     \pagebreak
 
     \addcontentsline{toc}{section}{\numberline{3}Definitionen}
 
-    \addcontentsline{toc}{section}{\numberline{4}John von Neumanns Mittelquadratmethode:
+    \addcontentsline{toc}{section}{\numberline{4}John von Neumanns Mittquadratmethode:
     \\\small Die Geburt des Pseudozufalls}
     \addcontentsline{toc}{subsection}{\numberline{4.1}Geschichte und Anwendung}
     \addcontentsline{toc}{subsection}{\numberline{4.2}Funktionsweise und offensichtliche Schwachstellen}
-    \addcontentsline{toc}{subsection}{\numberline{4.3}Bewertungskriterien von PZFG anhand der Mittelquadratmethode}
+    \addcontentsline{toc}{subsection}{\numberline{4.3}Bewertungskriterien von PZFG anhand der Mittquadratmethode}
     \addcontentsline{toc}{subsubsection}{\numberline{4.3.1}Effizienz}
     \addcontentsline{toc}{subsubsection}{\numberline{4.3.2}Werteverteilung: Wunsch und Realit\"at}
     \addcontentsline{toc}{subsubsection}{\numberline{4.3.3}Periodenl\"ange}
@@ -125,9 +150,9 @@
     \addcontentsline{toc}{subsection}{\numberline{5.3}Bewertungskriterien von PZFG anhand von RANDU}
     \addcontentsline{toc}{subsubsection}{\numberline{5.3.1}Effizienz: RANDU mit nur Addition und Bitoperationen}
     \addcontentsline{toc}{subsubsection}{\numberline{5.3.2}Werteverteilung und Periodenl\"ange: RANDU und
-    Kongruenzgeneratoren im Allgemeinen}
+    Kongruenz-generatoren im Allgemeinen}
     \addcontentsline{toc}{subsubsection}{\numberline{5.3.3}LSB-Analyse: Muster in niederwertigsten Bits}
-    \addcontentsline{toc}{subsubsection}{\numberline{5.3.4}Spektraltests: RANDUs 15 Ebenen}
+    \addcontentsline{toc}{subsubsection}{\numberline{5.3.4}Spektraltest: RANDUs 15 Ebenen}
 
     \addcontentsline{toc}{section}{\numberline{6}Moderne Verfahren:
     \\\small Pseudozufall mit Qualit\"at an erster Stelle}
@@ -149,37 +174,71 @@
 
     \bibliographystyle{abbrv}
     \begin{thebibliography}{9}
+        \bibitem{random_digits}
+        RAND:
+        \textit{A Million Random Digits with 100,000 Normal Deviates} (1955)
+        \\\texttt{\url{https://www.rand.org/content/dam/rand/pubs/monograph_reports/MR1418/MR1418.deviates.pdf}}
+        (abgerufen 2019-06-01)
+
+        \bibitem{ferranti_rng}
+        A. M. Turing, R. A. Brooker:
+        \textit{Programmer's Handbook for the Manchester Electronic Computer Mark II (2. Auflage)} 1. (1952)
+        \\\texttt{\url{http://curation.cs.manchester.ac.uk/computer50/www.computer50.org/kgill/mark1/progman.html}}
+        (abgerufen 2019-06-01)
+
+        \bibitem{middle_square}
+        Die 1949er Papiere wurden erst 1951 neu gedruckt:
+        \\J. Neumann, Von:
+        \textit{Various Techniques Used in Connection with Random Digits}
+        (1951, National Bureau of Standards, Applied Math Series)
+        \\\texttt{\url{https://mcnp.lanl.gov/pdf_files/nbs_vonneumann.pdf}}
+        (abgerufen 2019-06-01)
+
         \bibitem{latexcompanion}
         W. Killmann, W. Schindler; Bundesamt f\"ur Sicherheit in der Informationstechnik:
         \textit{A proposal for Functionality classes for random number generators} (2011-09-18)
-        \\\texttt{\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Zertifizierung/Interpretationen/AIS_31_Functionality_classes_for_random_number_generators_e.pdf;jsessionid=90B3596E4BF995CBF33B698F0C6723D9.1_cid360?__blob=publicationFile&v=1}}
+        \\\texttt{\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Zertifizierung/Interpretationen/AIS_31_Functionality_classes_for_random_number_generators_e.pdf?__blob=publicationFile}}
         (abgerufen 2019-04-30)
         %Addison-Wesley, Reading, Massachusetts, 1993.
 
         \bibitem{seminumerical algorithms}
         D. E. Knuth:
-        \textit{The Art of Computer Programming, Volume 2: Seminumerical Algorithms} (1997)
-        \\ Addison-Wesley
+        \textit{The Art of Computer Programming, Volume 2: Seminumerical Algorithms} (1997, Addison-Wesley)
+        \\\textttt{\url{https://doc.lagout.org/science/0_Computer%20Science/2_Algorithms/The%20Art%20of%20Computer%20Programming%20%28vol.%202_%20Seminumerical%20Algorithms%29%20%283rd%20ed.%29%20%5BKnuth%201997-11-14%5D.pdf
+        }}
+        (abgerufen 2019-06-01)
+
+        \bibitem{pokemon}
+        ''Fractal Fusion'':
+        \textit{Pokemon RBGY Random Number Generator}
+        \\\texttt{\url{https://web.archive.org/web/20190105083840/http://tasvideos.org/GameResources/GBx/Pokemon.html}}
+        (abgerufen 2019-06-01)
+
+        \bibitem{fortran}
+        Compaq:
+        \textit{Compaq Fortran Language Reference Manual}
+        \\\texttt{\url{http://h30266.www3.hpe.com/odl/unix/progtool/cf95au56/lrm0315.htm#randu_intrin}}
+        (abgerufen 2019-05-04)
 
         \bibitem{neumann}
-        J. Von Neumann:
-        \textit{Various techniques used in connection with random digits} (1951)
+        J. Neumann, Von:
+        \textit{Various techniques used in connection with random digits}, 12. 36-38
+        (1951, National Bureau of Standards, Applied Mathematics Series)
         \\\texttt{\url{https://dornsifecms.usc.edu/assets/sites/520/docs/VonNeumann-ams12p36-38.pdf}}
         (abgerufen 2019-04-30)
-        \\ National Bureau of Standards Applied Mathematics Series
 
         \bibitem{einstein}
-        katleman; OpenJDK:
-        \textit{Random.java} (2014-03-04)
+        Frank Yellin et al. f\"ur Oracle:
+        \textit{Random.java} (2014-03-04, OpenJDK)
         \\\texttt{\url{http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/tip/src/share/classes/java/util/Random.java}}
         (abgerufen 2019-04-30)
-        \\ OpenJDK
 
         \bibitem{aes}
         N. Ferguson, B. Schneier, T. Kohno:
-        \textit{Cryptography Engineering: Design Principles and Practical Applications} (2010)
+        \textit{Cryptography Engineering: Design Principles and Practical Applications} (2010, Wiley Publishing)
         \\\texttt{\url{https://www.schneier.com/academic/paperfiles/fortuna.pdf}}
-        \\ Wiley Publishing
+        (abgerufen 2019-06-01)
+
     \end{thebibliography}
 
 \end{document}
